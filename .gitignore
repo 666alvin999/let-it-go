@@ -1,9 +1,10 @@
-HELP.md
+README.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 */**/application.properties
+oracle-wallet
 
 ### STS ###
 .apt_generated
