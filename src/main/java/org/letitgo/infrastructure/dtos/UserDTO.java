@@ -13,8 +13,8 @@ public class UserDTO {
 
 	private String username;
 	private String birthDate;
-	private String identity;
-	private String password;
+	private String userIdentity;
+	private String pwd;
 
 	public static UserDTOBuilder userDTO() {
 		return UserDTO.builder();

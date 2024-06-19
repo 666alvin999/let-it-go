@@ -3,6 +3,7 @@ package org.letitgo.domain.usecases;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.User;
 import org.letitgo.domain.beans.userfields.*;
 import org.letitgo.domain.ports.UserPort;
@@ -10,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -37,13 +39,13 @@ class RegisterNewUserTest {
 			new Password("password")
 		);
 
-		when(this.userPort.register(user)).thenReturn(true);
+		when(this.userPort.register(user)).thenReturn(new ActionSuccess(true));
 
 		// Act
-		boolean actualRegister = this.registerNewUser.execute(user);
+		ActionSuccess actualRegister = this.registerNewUser.execute(user);
 
 		// Assert
-		boolean expectedRegister = true;
+		ActionSuccess expectedRegister = new ActionSuccess(true);
 
 		assertThat(actualRegister).isEqualTo(expectedRegister);
 	}
@@ -58,13 +60,13 @@ class RegisterNewUserTest {
 			new Password("password")
 		);
 
-		when(this.userPort.register(user)).thenReturn(false);
+		when(this.userPort.register(user)).thenReturn(new ActionSuccess(false, Optional.of("error")));
 
 		// Act
-		boolean actualRegister = this.registerNewUser.execute(user);
+		ActionSuccess actualRegister = this.registerNewUser.execute(user);
 
 		// Assert
-		boolean expectedRegister = false;
+		ActionSuccess expectedRegister = new ActionSuccess(false, Optional.of("error"));
 
 		assertThat(actualRegister).isEqualTo(expectedRegister);
 	}

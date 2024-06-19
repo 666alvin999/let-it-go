@@ -11,7 +11,10 @@ import org.letitgo.utils.EzDatabase;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,18 +43,52 @@ class UserDaoTest {
 		UserDTO userDTO = userDTO()
 			.username("macret")
 			.birthDate("2024-01-01")
-			.identity("SHE")
-			.password("password")
+			.userIdentity("SHE")
+			.pwd("password")
 			.build();
 
 	    // Act
-		ActionSuccess actualActionSuccess = this.userDao.register(userDTO);
+		this.userDao.register(userDTO);
 
 	    // Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+		assertThat(this.userDao.getUserByUsername("macret")).isEqualTo(List.of(userDTO));
+	}
+
+	@Test
+	public void shouldNotRegisterUser() {
+		// Arrange
+		UserDTO userDTO = userDTO()
+			.username("ahamaide")
+			.birthDate("2024-01-01")
+			.userIdentity("HE")
+			.pwd("password")
+			.build();
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userDao.register(userDTO);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("L'utilisateur existe déjà."));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
 
+	@Test
+	public void shouldReturnUserDTO() {
+	    // Act
+	    List<UserDTO> actualUserDTO = this.userDao.getUserByUsername("ahamaide");
+
+		// Assert
+	    List<UserDTO> expectedUserDTO = List.of(
+			userDTO()
+				.username("ahamaide")
+				.birthDate("2024-01-01")
+				.userIdentity("HE")
+				.pwd("password")
+				.build()
+	    );
+
+		assertThat(actualUserDTO).isEqualTo(expectedUserDTO);
 	}
 
 	@SneakyThrows

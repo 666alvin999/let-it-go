@@ -1,5 +1,6 @@
 package org.letitgo.domain.usecases;
 
+import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.User;
 import org.letitgo.domain.ports.UserPort;
 
@@ -11,7 +12,7 @@ public class RegisterNewUser {
 		this.userPort = userPort;
 	}
 
-	public boolean execute(User user) {
+	public ActionSuccess execute(User user) {
 		return this.userPort.register(user);
 	}
 
