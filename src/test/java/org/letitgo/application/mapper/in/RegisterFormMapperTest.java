@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.application.dtos.in.RegisterForm;
 import org.letitgo.domain.beans.User;
-import org.letitgo.domain.beans.userfields.BirthDate;
-import org.letitgo.domain.beans.userfields.Identity;
-import org.letitgo.domain.beans.userfields.Password;
-import org.letitgo.domain.beans.userfields.Username;
+import org.letitgo.domain.beans.userfields.*;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,6 +37,7 @@ class RegisterFormMapperTest {
 		// Arrange
 		RegisterForm registerForm = registerForm()
 			.username("ahamaide")
+			.mail("mail")
 			.birthDate("2024-01-01")
 			.identity("HE")
 			.password("password")
@@ -53,6 +51,7 @@ class RegisterFormMapperTest {
 		// Assert
 		User expectedUser = new User(
 			new Username("ahamaide"),
+			new Mail("mail"),
 			new BirthDate(LocalDate.of(2024, 1, 1)),
 			Identity.HE,
 			new Password("encoded")

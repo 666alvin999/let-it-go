@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.User;
-import org.letitgo.domain.beans.userfields.BirthDate;
-import org.letitgo.domain.beans.userfields.Identity;
-import org.letitgo.domain.beans.userfields.Password;
-import org.letitgo.domain.beans.userfields.Username;
+import org.letitgo.domain.beans.userfields.*;
 import org.letitgo.infrastructure.daos.UserDao;
 import org.letitgo.infrastructure.dtos.UserDTO;
 import org.letitgo.infrastructure.mappers.UserMapper;
@@ -43,6 +40,7 @@ class UserAdapterTest {
 	    // Arrange
 		User user = new User(
 			new Username("ahamaide"),
+			new Mail("mail"),
 			new BirthDate(LocalDate.of(2024, 1, 1)),
 			Identity.HE,
 			new Password("password")
@@ -50,6 +48,7 @@ class UserAdapterTest {
 
 		UserDTO userDTO = userDTO()
 			.username("ahamaide")
+			.mail("mail")
 			.birthDate("2024-01-01")
 			.userIdentity("HE")
 			.pwd("password")

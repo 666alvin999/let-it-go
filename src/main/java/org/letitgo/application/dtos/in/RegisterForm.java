@@ -12,6 +12,7 @@ import lombok.*;
 public class RegisterForm {
 
 	private String username;
+	private String mail;
 	private String birthDate;
 	private String identity;
 	private String password;

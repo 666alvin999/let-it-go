@@ -2,10 +2,7 @@ package org.letitgo.application.mapper.in;
 
 import org.letitgo.application.dtos.in.RegisterForm;
 import org.letitgo.domain.beans.User;
-import org.letitgo.domain.beans.userfields.BirthDate;
-import org.letitgo.domain.beans.userfields.Identity;
-import org.letitgo.domain.beans.userfields.Password;
-import org.letitgo.domain.beans.userfields.Username;
+import org.letitgo.domain.beans.userfields.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -32,6 +29,7 @@ public class RegisterFormMapper {
 
 		return new User(
 			new Username(registerForm.getUsername()),
+			new Mail(registerForm.getMail()),
 			new BirthDate(LocalDate.parse(registerForm.getBirthDate(), this.dateFormatter)),
 			identity,
 			new Password(this.passwordEncoder.encode(registerForm.getPassword()))
