@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.User;
-import org.letitgo.domain.beans.userfields.*;
+import org.letitgo.domain.beans.userfields.BirthDate;
+import org.letitgo.domain.beans.userfields.Mail;
+import org.letitgo.domain.beans.userfields.Password;
+import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.domain.ports.UserPort;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -13,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,7 +33,7 @@ class LogUserInTest {
 
 	@Test
 	public void shouldLogUserInSuccessfully() {
-	    // Arrange
+		// Arrange
 		User user = new User(
 			new Username("ahamaide"),
 			new Mail(null),
@@ -42,10 +44,10 @@ class LogUserInTest {
 
 		when(this.userPort.logUserIn(user)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.logUserIn.execute(user);
 
-	    // Assert
+		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

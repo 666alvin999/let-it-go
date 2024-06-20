@@ -30,16 +30,16 @@ class ActionSuccessPresenterTest {
 
 	@Test
 	public void shouldPresentSuccessfullAction() {
-	    // Arrange
+		// Arrange
 		ActionSuccess actionSuccess = new ActionSuccess(true);
 		ActionSuccessViewModel actionSuccessViewModel = new ActionSuccessViewModel(true, null);
 
 		when(this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess)).thenReturn(actionSuccessViewModel);
 
-	    // Act
+		// Act
 		ResponseEntity<String> actualResponse = this.presenter.present(actionSuccess);
 
-	    // Assert
+		// Assert
 		ResponseEntity<String> expectedResponse = ResponseEntity.ok("{\"success\":true}");
 
 		assertThat(actualResponse).isEqualTo(expectedResponse);

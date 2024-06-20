@@ -1,7 +1,5 @@
 package org.letitgo.infrastructure.adapters;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.User;
 import org.letitgo.domain.ports.UserPort;
@@ -14,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserAdapter implements UserPort {
 
-	private UserDao userDao;
-	private UserMapper userMapper;
+	private final UserDao userDao;
+	private final UserMapper userMapper;
 
 	@Autowired
 	public UserAdapter(UserDao userDao, UserMapper userMapper) {

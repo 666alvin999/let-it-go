@@ -2,23 +2,15 @@ package org.letitgo.application.mappers.in;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.application.dtos.in.LoginForm;
-import org.letitgo.application.dtos.in.RegisterForm;
 import org.letitgo.domain.beans.User;
-import org.letitgo.domain.beans.userfields.*;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
+import org.letitgo.domain.beans.userfields.BirthDate;
+import org.letitgo.domain.beans.userfields.Mail;
+import org.letitgo.domain.beans.userfields.Password;
+import org.letitgo.domain.beans.userfields.Username;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.letitgo.application.dtos.in.LoginForm.loginForm;
-import static org.letitgo.application.dtos.in.RegisterForm.registerForm;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 class LoginFormMapperTest {
 

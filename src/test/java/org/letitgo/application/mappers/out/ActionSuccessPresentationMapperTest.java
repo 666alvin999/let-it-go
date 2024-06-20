@@ -1,9 +1,9 @@
 package org.letitgo.application.mappers.out;
 
-import org.letitgo.application.dtos.out.ActionSuccessViewModel;
-import org.letitgo.domain.beans.ActionSuccess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.letitgo.application.dtos.out.ActionSuccessViewModel;
+import org.letitgo.domain.beans.ActionSuccess;
 
 import java.util.Optional;
 
@@ -26,8 +26,8 @@ class ActionSuccessPresentationMapperTest {
 		// Act
 		ActionSuccessViewModel actualViewModel = this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess);
 
-	    // Assert
-	    ActionSuccessViewModel expectedViewModel = new ActionSuccessViewModel(true, null);
+		// Assert
+		ActionSuccessViewModel expectedViewModel = new ActionSuccessViewModel(true, null);
 
 		assertThat(actualViewModel).isEqualTo(expectedViewModel);
 	}

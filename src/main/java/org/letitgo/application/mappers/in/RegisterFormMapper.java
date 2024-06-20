@@ -3,8 +3,6 @@ package org.letitgo.application.mappers.in;
 import org.letitgo.application.dtos.in.RegisterForm;
 import org.letitgo.domain.beans.User;
 import org.letitgo.domain.beans.userfields.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
