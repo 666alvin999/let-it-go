@@ -7,4 +7,6 @@ public interface UserPort {
 
 	ActionSuccess register(User user);
 
+	ActionSuccess logUserIn(User user);
+
 }

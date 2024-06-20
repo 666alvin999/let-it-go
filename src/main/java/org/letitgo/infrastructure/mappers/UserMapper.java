@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static java.util.Objects.nonNull;
 import static org.letitgo.infrastructure.dtos.UserDTO.userDTO;
 
 @Component
@@ -16,7 +17,6 @@ public class UserMapper {
 	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public UserDTO mapToDTO(User user) {
-
 		String identity;
 
 		if (user.identity() == Identity.HE) {
@@ -27,10 +27,12 @@ public class UserMapper {
 			identity = "THEY";
 		}
 
+		String birthDate = nonNull(user.birthDate().value()) ? this.dateFormatter.format(user.birthDate().value()) : null;
+
 		return userDTO()
 			.username(user.username().value())
 			.mail(user.mail().value())
-			.birthDate(this.dateFormatter.format(user.birthDate().value()))
+			.birthDate(birthDate)
 			.userIdentity(identity)
 			.pwd(user.password().value())
 			.build();

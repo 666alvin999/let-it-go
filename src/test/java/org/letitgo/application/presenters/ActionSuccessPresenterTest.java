@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.application.dtos.out.ActionSuccessViewModel;
-import org.letitgo.application.mapper.out.ActionSuccessPresentationMapper;
+import org.letitgo.application.mappers.out.ActionSuccessPresentationMapper;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -30,16 +30,16 @@ class ActionSuccessPresenterTest {
 
 	@Test
 	public void shouldPresentSuccessfullAction() {
-	    // Arrange
+		// Arrange
 		ActionSuccess actionSuccess = new ActionSuccess(true);
 		ActionSuccessViewModel actionSuccessViewModel = new ActionSuccessViewModel(true, null);
 
 		when(this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess)).thenReturn(actionSuccessViewModel);
 
-	    // Act
+		// Act
 		ResponseEntity<String> actualResponse = this.presenter.present(actionSuccess);
 
-	    // Assert
+		// Assert
 		ResponseEntity<String> expectedResponse = ResponseEntity.ok("{\"success\":true}");
 
 		assertThat(actualResponse).isEqualTo(expectedResponse);

@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.letitgo.infrastructure.dtos.UserDTO.userDTO;
 import static org.mockito.Mockito.when;
 
@@ -37,7 +36,7 @@ class UserAdapterTest {
 
 	@Test
 	public void shouldRegisterSuccessfully() {
-	    // Arrange
+		// Arrange
 		User user = new User(
 			new Username("ahamaide"),
 			new Mail("mail"),
@@ -57,10 +56,66 @@ class UserAdapterTest {
 		when(this.userMapper.mapToDTO(user)).thenReturn(userDTO);
 		when(this.userDao.register(userDTO)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.userAdapter.register(user);
 
-	    // Assert
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldLogUserInSuccessfully() {
+		// Arrange
+		User user = new User(
+			new Username("ahamaide"),
+			new Mail(null),
+			new BirthDate(null),
+			null,
+			new Password("password")
+		);
+
+		UserDTO userDTO = userDTO()
+			.username("ahamaide")
+			.pwd("password")
+			.build();
+
+		when(this.userMapper.mapToDTO(user)).thenReturn(userDTO);
+		when(this.userDao.logUserIn(userDTO)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.logUserIn(user);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldLogUserInSuccessfully_whenMailIsGiven() {
+		// Arrange
+		User user = new User(
+			new Username(null),
+			new Mail("mail"),
+			new BirthDate(null),
+			null,
+			new Password("password")
+		);
+
+		UserDTO userDTO = userDTO()
+			.mail("mail")
+			.pwd("password")
+			.build();
+
+		when(this.userMapper.mapToDTO(user)).thenReturn(userDTO);
+		when(this.userDao.logUserIn(userDTO)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.logUserIn(user);
+
+		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

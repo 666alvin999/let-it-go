@@ -9,7 +9,6 @@ import org.letitgo.infrastructure.dtos.UserDTO;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.letitgo.infrastructure.dtos.UserDTO.userDTO;
 
 class UserMapperTest {
@@ -23,7 +22,7 @@ class UserMapperTest {
 
 	@Test
 	public void shouldMapUserToUserDTO() {
-	    // Arrange
+		// Arrange
 		User user = new User(
 			new Username("ahamaide"),
 			new Mail("mail"),
@@ -32,17 +31,17 @@ class UserMapperTest {
 			new Password("password")
 		);
 
-	    // Act
+		// Act
 		UserDTO actualUserDTO = this.userMapper.mapToDTO(user);
 
-	    // Assert
-	    UserDTO expectedUserDTO = userDTO()
-		    .username("ahamaide")
-		    .mail("mail")
-		    .birthDate("2024-01-01")
-		    .userIdentity("HE")
-		    .pwd("password")
-		    .build();
+		// Assert
+		UserDTO expectedUserDTO = userDTO()
+			.username("ahamaide")
+			.mail("mail")
+			.birthDate("2024-01-01")
+			.userIdentity("HE")
+			.pwd("password")
+			.build();
 
 		assertThat(actualUserDTO).isEqualTo(expectedUserDTO);
 	}
