@@ -6,6 +6,7 @@ import org.letitgo.domain.beans.userfields.Identity;
 import org.letitgo.domain.beans.userfields.Password;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.UserDTO;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,7 @@ import java.util.Objects;
 
 import static org.letitgo.infrastructure.dtos.UserDTO.userDTO;
 
+@Component
 public class UserMapper {
 
 	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

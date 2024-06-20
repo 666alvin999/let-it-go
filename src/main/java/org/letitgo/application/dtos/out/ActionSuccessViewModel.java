@@ -1,4 +1,4 @@
-package org.letitgo.application.dtos;
+package org.letitgo.application.dtos.out;
 
 import lombok.*;
 

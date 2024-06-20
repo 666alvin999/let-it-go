@@ -1,6 +1,6 @@
-package org.letitgo.application.mapper;
+package org.letitgo.application.mapper.out;
 
-import org.letitgo.application.dtos.ActionSuccessViewModel;
+import org.letitgo.application.dtos.out.ActionSuccessViewModel;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.springframework.stereotype.Component;
 

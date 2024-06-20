@@ -2,8 +2,8 @@ package org.letitgo.application.mappers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.letitgo.application.dtos.ActionSuccessViewModel;
-import org.letitgo.application.mapper.ActionSuccessPresentationMapper;
+import org.letitgo.application.dtos.out.ActionSuccessViewModel;
+import org.letitgo.application.mapper.out.ActionSuccessPresentationMapper;
 import org.letitgo.domain.beans.ActionSuccess;
 
 import java.util.Optional;
