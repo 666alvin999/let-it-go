@@ -42,6 +42,7 @@ class UserDaoTest {
 	    // Arrange
 		UserDTO userDTO = userDTO()
 			.username("macret")
+			.mail("mail")
 			.birthDate("2024-01-01")
 			.userIdentity("SHE")
 			.pwd("password")
@@ -59,6 +60,7 @@ class UserDaoTest {
 		// Arrange
 		UserDTO userDTO = userDTO()
 			.username("ahamaide")
+			.mail("mail")
 			.birthDate("2024-01-01")
 			.userIdentity("HE")
 			.pwd("password")
@@ -82,6 +84,7 @@ class UserDaoTest {
 	    List<UserDTO> expectedUserDTO = List.of(
 			userDTO()
 				.username("ahamaide")
+				.mail("mail")
 				.birthDate("2024-01-01")
 				.userIdentity("HE")
 				.pwd("password")

@@ -20,7 +20,7 @@ public class UserDao {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-	private final String REGISTER = "INSERT INTO USERS VALUES (:username, :birthDate, :identity, :password)";
+	private final String REGISTER = "INSERT INTO USERS VALUES (:username, :mail, :birthDate, :identity, :password)";
 	private final String GET_BY_USERNAME = "SELECT * FROM USERS WHERE USERNAME = :username";
 
 	public UserDao() {
@@ -35,6 +35,7 @@ public class UserDao {
 		if (this.getUserByUsername(userDTO.getUsername()).isEmpty()) {
 			Map<String, String> params = Map.of(
 				"username", userDTO.getUsername(),
+				"mail", userDTO.getMail(),
 				"birthDate", userDTO.getBirthDate(),
 				"identity", userDTO.getUserIdentity(),
 				"password", userDTO.getPwd()

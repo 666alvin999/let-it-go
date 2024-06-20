@@ -12,6 +12,7 @@ import lombok.*;
 public class UserDTO {
 
 	private String username;
+	private String mail;
 	private String birthDate;
 	private String userIdentity;
 	private String pwd;

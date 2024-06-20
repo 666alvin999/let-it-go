@@ -34,6 +34,7 @@ class RegisterNewUserTest {
 		// Arrange
 		User user = new User(
 			new Username("ahamaide"),
+			new Mail("mail"),
 			new BirthDate(LocalDate.of(1990, 1, 1)),
 			Identity.HE,
 			new Password("password")
@@ -55,6 +56,7 @@ class RegisterNewUserTest {
 		// Arrange
 		User user = new User(
 			new Username("ahamaide"),
+			new Mail("mail"),
 			new BirthDate(LocalDate.of(1990, 1, 1)),
 			Identity.HE,
 			new Password("password")
