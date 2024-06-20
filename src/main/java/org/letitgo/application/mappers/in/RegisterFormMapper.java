@@ -1,4 +1,4 @@
-package org.letitgo.application.mapper.in;
+package org.letitgo.application.mappers.in;
 
 import org.letitgo.application.dtos.in.RegisterForm;
 import org.letitgo.domain.beans.User;
@@ -14,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 public class RegisterFormMapper {
 
 	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	public User mapToUser(RegisterForm registerForm) {
 		Identity identity;
@@ -32,7 +31,7 @@ public class RegisterFormMapper {
 			new Mail(registerForm.getMail()),
 			new BirthDate(LocalDate.parse(registerForm.getBirthDate(), this.dateFormatter)),
 			identity,
-			new Password(this.passwordEncoder.encode(registerForm.getPassword()))
+			new Password(registerForm.getPassword())
 		);
 	}
 

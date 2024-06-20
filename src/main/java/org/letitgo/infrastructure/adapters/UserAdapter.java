@@ -29,4 +29,10 @@ public class UserAdapter implements UserPort {
 		return this.userDao.register(userDTO);
 	}
 
+	public ActionSuccess logUserIn(User user) {
+		UserDTO userDTO = this.userMapper.mapToDTO(user);
+
+		return this.userDao.logUserIn(userDTO);
+	}
+
 }

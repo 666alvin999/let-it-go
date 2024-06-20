@@ -1,4 +1,4 @@
-package org.letitgo.application.mapper.in;
+package org.letitgo.application.mappers.in;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,13 +23,9 @@ class RegisterFormMapperTest {
 
 	private RegisterFormMapper registerFormMapper;
 
-	@Mock
-	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
 	@BeforeEach
 	public void setUp() {
 		this.registerFormMapper = new RegisterFormMapper();
-		setField(registerFormMapper, "passwordEncoder", this.passwordEncoder);
 	}
 
 	@Test
@@ -43,8 +39,6 @@ class RegisterFormMapperTest {
 			.password("password")
 			.build();
 
-		when(this.passwordEncoder.encode("password")).thenReturn("encoded");
-
 		// Act
 		User actualUser = this.registerFormMapper.mapToUser(registerForm);
 
@@ -54,7 +48,7 @@ class RegisterFormMapperTest {
 			new Mail("mail"),
 			new BirthDate(LocalDate.of(2024, 1, 1)),
 			Identity.HE,
-			new Password("encoded")
+			new Password("password")
 		);
 
 		assertThat(actualUser).isEqualTo(expectedUser);

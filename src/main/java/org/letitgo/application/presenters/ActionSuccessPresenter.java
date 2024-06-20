@@ -1,10 +1,9 @@
 package org.letitgo.application.presenters;
 
 import com.google.gson.Gson;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.letitgo.application.dtos.out.ActionSuccessViewModel;
-import org.letitgo.application.mapper.out.ActionSuccessPresentationMapper;
+import org.letitgo.application.mappers.out.ActionSuccessPresentationMapper;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

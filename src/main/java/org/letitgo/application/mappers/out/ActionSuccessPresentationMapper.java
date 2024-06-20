@@ -1,4 +1,4 @@
-package org.letitgo.application.mapper.out;
+package org.letitgo.application.mappers.out;
 
 import org.letitgo.application.dtos.out.ActionSuccessViewModel;
 import org.letitgo.domain.beans.ActionSuccess;

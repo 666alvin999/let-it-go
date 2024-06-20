@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -13,15 +15,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static java.util.Collections.emptyList;
+import static java.util.Objects.nonNull;
 
 @Component
 public class UserDao {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-	private final String REGISTER = "INSERT INTO USERS VALUES (:username, :mail, :birthDate, :identity, :password)";
+	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+	private final String REGISTER = "INSERT INTO USERS VALUES (:username, :birthDate, :identity, :password, :mail)";
 	private final String GET_BY_USERNAME = "SELECT * FROM USERS WHERE USERNAME = :username";
+	private final String GET_BY_MAIL = "SELECT * FROM USERS WHERE MAIL = :mail";
 
 	public UserDao() {
 	}
@@ -32,24 +37,58 @@ public class UserDao {
 	}
 
 	public ActionSuccess register(UserDTO userDTO) {
-		if (this.getUserByUsername(userDTO.getUsername()).isEmpty()) {
-			Map<String, String> params = Map.of(
-				"username", userDTO.getUsername(),
-				"mail", userDTO.getMail(),
-				"birthDate", userDTO.getBirthDate(),
-				"identity", userDTO.getUserIdentity(),
-				"password", userDTO.getPwd()
-			);
-
+		if (this.getUserByUsername(userDTO.getUsername()).isEmpty() && this.getUserByMail(userDTO.getMail()).isEmpty()) {
 			try {
+				Map<String, String> params = Map.of(
+					"username", userDTO.getUsername(),
+					"mail", userDTO.getMail(),
+					"birthDate", userDTO.getBirthDate(),
+					"identity", userDTO.getUserIdentity(),
+					"password", this.passwordEncoder.encode(userDTO.getPwd())
+				);
+
 				this.jdbcTemplate.update(REGISTER, params);
 				return new ActionSuccess(true);
 			} catch (Exception e) {
+				if (e.getClass() == NullPointerException.class) {
+					return new ActionSuccess(false, Optional.of("Un des champs est vide."));
+				}
+
 				return new ActionSuccess(false, Optional.of(e.getMessage()));
 			}
+		} else if (!this.getUserByMail(userDTO.getMail()).isEmpty()) {
+			return new ActionSuccess(false, Optional.of("Ce mail est déjà pris."));
 		} else {
 			return new ActionSuccess(false, Optional.of("L'utilisateur existe déjà."));
 		}
+	}
+
+	public ActionSuccess logUserIn(UserDTO userDTO) {
+		if (nonNull(userDTO.getUsername())) {
+			List<UserDTO> fetchedUserDTO = this.getUserByUsername(userDTO.getUsername());
+
+			if (fetchedUserDTO.isEmpty()) {
+				return new ActionSuccess(false, Optional.of("Utilisateur introuvable"));
+			}
+
+			if (this.passwordEncoder.matches(userDTO.getPwd(), fetchedUserDTO.getFirst().getPwd())) {
+				return new ActionSuccess(true);
+			}
+		}
+
+		if (nonNull(userDTO.getMail())) {
+			List<UserDTO> fetchedUserDTO = this.getUserByMail(userDTO.getMail());
+
+			if (fetchedUserDTO.isEmpty()) {
+				return new ActionSuccess(false, Optional.of("Utilisateur introuvable"));
+			}
+
+			if (this.passwordEncoder.matches(userDTO.getPwd(), fetchedUserDTO.getFirst().getPwd())) {
+				return new ActionSuccess(true);
+			}
+		}
+
+		return new ActionSuccess(false, Optional.of("Les informations de connexion sont invalides"));
 	}
 
 	public List<UserDTO> getUserByUsername(String username) {
@@ -58,4 +97,9 @@ public class UserDao {
 		return this.jdbcTemplate.query(GET_BY_USERNAME, params, new BeanPropertyRowMapper<>(UserDTO.class));
 	}
 
+	public List<UserDTO> getUserByMail(String mail) {
+		Map<String, String> params = Map.of("mail", mail);
+
+		return this.jdbcTemplate.query(GET_BY_MAIL, params, new BeanPropertyRowMapper<>(UserDTO.class));
+	}
 }

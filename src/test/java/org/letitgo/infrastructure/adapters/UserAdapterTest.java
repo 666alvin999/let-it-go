@@ -66,4 +66,60 @@ class UserAdapterTest {
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}
 
+	@Test
+	public void shouldLogUserInSuccessfully() {
+		// Arrange
+		User user = new User(
+			new Username("ahamaide"),
+			new Mail(null),
+			new BirthDate(null),
+			null,
+			new Password("password")
+		);
+
+		UserDTO userDTO = userDTO()
+			.username("ahamaide")
+			.pwd("password")
+			.build();
+
+		when(this.userMapper.mapToDTO(user)).thenReturn(userDTO);
+		when(this.userDao.logUserIn(userDTO)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.logUserIn(user);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldLogUserInSuccessfully_whenMailIsGiven() {
+		// Arrange
+		User user = new User(
+			new Username(null),
+			new Mail("mail"),
+			new BirthDate(null),
+			null,
+			new Password("password")
+		);
+
+		UserDTO userDTO = userDTO()
+			.mail("mail")
+			.pwd("password")
+			.build();
+
+		when(this.userMapper.mapToDTO(user)).thenReturn(userDTO);
+		when(this.userDao.logUserIn(userDTO)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.logUserIn(user);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
 }
