@@ -2,6 +2,7 @@ package org.letitgo.infrastructure.adapters;
 
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.FileInfos;
+import org.letitgo.domain.beans.Memory;
 import org.letitgo.domain.ports.MemoryPort;
 import org.letitgo.infrastructure.daos.DropboxDao;
 import org.letitgo.infrastructure.dtos.FileInfosDTO;
@@ -19,6 +20,10 @@ public class MemoryAdapter implements MemoryPort {
 	public MemoryAdapter(DropboxDao dropboxDao, FileInfosMapper fileInfosMapper) {
 		this.dropboxDao = dropboxDao;
 		this.fileInfosMapper = fileInfosMapper;
+	}
+
+	public ActionSuccess save(Memory memory) {
+		return new ActionSuccess(true);
 	}
 
 	public ActionSuccess uploadFile(FileInfos fileInfos) {

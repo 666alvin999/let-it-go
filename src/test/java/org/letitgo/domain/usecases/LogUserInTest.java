@@ -86,13 +86,13 @@ class LogUserInTest {
 			new Password("password")
 		);
 
-		when(this.userPort.logUserIn(user)).thenReturn(new ActionSuccess(false, Optional.of("Le mot de passe ou l'identifiant est erroné.")));
+		when(this.userPort.logUserIn(user)).thenReturn(new ActionSuccess(false, Optional.ofNullable("Le mot de passe ou l'identifiant est erroné.")));
 
 		// Act
 		ActionSuccess actualActionSuccess = this.logUserIn.execute(user);
 
 		// Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Le mot de passe ou l'identifiant est erroné."));
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.ofNullable("Le mot de passe ou l'identifiant est erroné."));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}

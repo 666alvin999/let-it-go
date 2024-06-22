@@ -48,7 +48,7 @@ class ActionSuccessPresenterTest {
 	@Test
 	public void shouldPresentFailedAction() {
 		// Arrange
-		ActionSuccess actionSuccess = new ActionSuccess(false, Optional.of("error"));
+		ActionSuccess actionSuccess = new ActionSuccess(false, Optional.ofNullable("error"));
 		ActionSuccessViewModel actionSuccessViewModel = new ActionSuccessViewModel(false, "error");
 
 		when(this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess)).thenReturn(actionSuccessViewModel);

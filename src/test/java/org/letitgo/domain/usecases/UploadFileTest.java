@@ -1,4 +1,4 @@
-package org.letitgo.infrastructure.adapters;
+package org.letitgo.domain.usecases;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,58 +9,44 @@ import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
 import org.letitgo.domain.beans.fileinfosfields.Username;
-import org.letitgo.infrastructure.daos.DropboxDao;
-import org.letitgo.infrastructure.dtos.FileInfosDTO;
-import org.letitgo.infrastructure.mappers.FileInfosMapper;
+import org.letitgo.domain.ports.MemoryPort;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.FileInputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.letitgo.infrastructure.dtos.FileInfosDTO.fileInfosDTO;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class MemoryAdapterTest {
+class UploadFileTest {
 
-	private MemoryAdapter memoryAdapter;
-
-	@Mock
-	private FileInfosMapper fileInfosMapper;
+	private UploadFile uploadFile;
 
 	@Mock
-	private DropboxDao dropboxDao;
+	private MemoryPort memoryPort;
 
 	@BeforeEach
 	public void setUp() {
-		this.memoryAdapter = new MemoryAdapter(dropboxDao, fileInfosMapper);
+		this.uploadFile = new UploadFile(memoryPort);
 	}
 
 	@Test
 	@SneakyThrows
 	public void shouldUploadFileSuccessfully() {
-		// Arrange
-		File file = new File(new FileInputStream("src/test/resources/test_img.png"));
-
+	    // Arrange
 		FileInfos fileInfos = new FileInfos(
-			file,
+			new File(new FileInputStream("src/test/resources/test_img.png")),
 			new FileName("test_img.png"),
 			new Username("ahamaide")
 		);
 
-		FileInfosDTO fileInfosDTO = fileInfosDTO()
-			.file(file.value())
-			.fileName("ahamaide_test_img.png")
-			.build();
+		when(this.memoryPort.uploadFile(fileInfos)).thenReturn(new ActionSuccess(true));
 
-		when(this.fileInfosMapper.mapToDTO(fileInfos)).thenReturn(fileInfosDTO);
-		when(this.dropboxDao.uploadFile(fileInfosDTO)).thenReturn(new ActionSuccess(true));
+	    // Act
+		ActionSuccess actualActionSuccess = this.uploadFile.execute(fileInfos);
 
-		// Act
-		ActionSuccess actualActionSuccess = this.memoryAdapter.uploadFile(fileInfos);
-
-		// Assert
+	    // Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

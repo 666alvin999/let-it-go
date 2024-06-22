@@ -35,7 +35,7 @@ class ActionSuccessPresentationMapperTest {
 	@Test
 	public void shouldMapToViewModelWithError() {
 		// Arrange
-		ActionSuccess actionSuccess = new ActionSuccess(false, Optional.of("error"));
+		ActionSuccess actionSuccess = new ActionSuccess(false, Optional.ofNullable("error"));
 
 		// Act
 		ActionSuccessViewModel actualViewModel = this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess);
