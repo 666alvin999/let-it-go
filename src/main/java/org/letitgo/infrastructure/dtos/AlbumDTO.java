@@ -9,16 +9,13 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class MemoryDTO {
+public class AlbumDTO {
 
 	private String albumName;
 	private String username;
-	private String textContent;
-	private String mediaName;
-	private String memoryDatetime;
 
-	public static MemoryDTOBuilder memoryDTO() {
-		return new MemoryDTOBuilder();
+	public static AlbumDTOBuilder albumDTO() {
+		return AlbumDTO.builder();
 	}
 
 }

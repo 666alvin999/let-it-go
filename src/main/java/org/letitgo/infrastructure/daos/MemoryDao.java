@@ -22,7 +22,8 @@ public class MemoryDao {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	private final String GET_BY_USERNAME_AND_DATETIME = "SELECT * FROM MEMORY WHERE USERNAME = :username AND MEMORY_DATETIME = :memoryDatetime";
-	private final String SAVE_BEGINNING = "INSERT INTO MEMORY (USERNAME, TEXT_CONTENT, MEMORY_DATETIME";
+	private final String SAVE_BEGINNING = "INSERT INTO MEMORY (ALBUM_NAME, USERNAME, TEXT_CONTENT, MEMORY_DATETIME";
+	private final String DELETE = "DELETE FROM MEMORY WHERE ALBUM_NAME = :albumName AND USERNAME = :username AND MEMORY_DATETIME = :memoryDatetime";
 
 	public MemoryDao() {
 	}
@@ -32,7 +33,7 @@ public class MemoryDao {
 		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public ActionSuccess saveMemory(MemoryDTO memoryDTO) {
+	public ActionSuccess save(MemoryDTO memoryDTO) {
 		try {
 			if (!this.getMemoryByUsernameAndDatetime(memoryDTO.getUsername(), memoryDTO.getMemoryDatetime()).isEmpty()) {
 				return new ActionSuccess(false, Optional.of("Un souvenir existe déjà pour cet instant"));
@@ -42,6 +43,7 @@ public class MemoryDao {
 
 			HashMap<String, String> params = new HashMap<>();
 
+			params.put("albumName", memoryDTO.getAlbumName());
 			params.put("username", memoryDTO.getUsername());
 			params.put("textContent", memoryDTO.getTextContent());
 			params.put("memoryDatetime", memoryDTO.getMemoryDatetime());
@@ -51,7 +53,7 @@ public class MemoryDao {
 				query += ", MEDIA_NAME";
 			}
 
-			query += ") VALUES (:username, :textContent, :memoryDatetime";
+			query += ") VALUES (:albumName, :username, :textContent, :memoryDatetime";
 
 			if (nonNull(memoryDTO.getMediaName())) {
 				query += ", :mediaName";
@@ -60,6 +62,22 @@ public class MemoryDao {
 			query += ");";
 
 			this.jdbcTemplate.update(query, params);
+
+			return new ActionSuccess(true);
+		} catch (Exception e) {
+			return new ActionSuccess(false, Optional.ofNullable(e.getMessage()));
+		}
+	}
+
+	public ActionSuccess delete(MemoryDTO memoryDTO) {
+		try {
+			Map<String, String> params = Map.of(
+				"albumName", memoryDTO.getAlbumName(),
+				"username", memoryDTO.getUsername(),
+				"memoryDatetime", memoryDTO.getMemoryDatetime()
+			);
+
+			this.jdbcTemplate.update(DELETE, params);
 
 			return new ActionSuccess(true);
 		} catch (Exception e) {

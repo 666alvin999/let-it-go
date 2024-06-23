@@ -6,7 +6,7 @@ import org.letitgo.domain.ports.MemoryPort;
 
 public class UploadFile {
 
-	private MemoryPort memoryPort;
+	private final MemoryPort memoryPort;
 
 	public UploadFile(MemoryPort memoryPort) {
 		this.memoryPort = memoryPort;

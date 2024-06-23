@@ -5,47 +5,47 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
-import org.letitgo.infrastructure.dtos.MemoryDTO;
+import org.letitgo.infrastructure.dtos.AlbumDTO;
 import org.letitgo.utils.BasicDatabaseExtension;
 import org.letitgo.utils.EzDatabase;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.letitgo.infrastructure.dtos.MemoryDTO.memoryDTO;
+import static org.letitgo.infrastructure.dtos.AlbumDTO.albumDTO;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 @ExtendWith(BasicDatabaseExtension.class)
-class MemoryDaoTest {
+class AlbumDaoTest {
 
-	private MemoryDao memoryDao;
+	private AlbumDao albumDao;
 
 	@EzDatabase
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	@BeforeEach
 	public void setUp() {
-		this.memoryDao = new MemoryDao();
-		setField(this.memoryDao, "jdbcTemplate", this.jdbcTemplate);
+		this.albumDao = new AlbumDao();
+		setField(this.albumDao, "jdbcTemplate", this.jdbcTemplate);
 
 		initTables();
 	}
 
 	@Test
-	public void shouldSave() {
+	public void shouldSaveAlbum() {
 		// Arrange
-		MemoryDTO memoryDTO = memoryDTO()
-			.albumName("ahamaide's album")
+		AlbumDTO albumDTO = albumDTO()
+			.albumName("album2")
 			.username("ahamaide")
-			.textContent("as;dlfj;aldjsf;")
-			.memoryDatetime("2023-12-31:12-45-03")
 			.build();
 
 		// Act
-		ActionSuccess actualActionSuccess = this.memoryDao.save(memoryDTO);
+		ActionSuccess actualActionSuccess = this.albumDao.save(albumDTO);
 
 		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
@@ -54,27 +54,31 @@ class MemoryDaoTest {
 	}
 
 	@Test
-	public void shouldDelete() {
-		// Arrange
-		MemoryDTO memoryDTO = memoryDTO()
+	public void shouldGetAlbumByNameAndUsername() {
+	    // Arrange
+		AlbumDTO albumDTO = albumDTO()
 			.albumName("ahamaide's album")
 			.username("ahamaide")
-			.memoryDatetime("2024-12-12 12:12:12")
 			.build();
 
-		// Act
-		ActionSuccess actualActionSuccess = this.memoryDao.delete(memoryDTO);
+	    // Act
+		List<AlbumDTO> actualAlbumDTO = this.albumDao.getAlbumByAlbumNameAndUsername(albumDTO);
 
-		// Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+	    // Assert
+	    List<AlbumDTO> expectedAlbumDTO = List.of(
+		    albumDTO()
+			    .albumName("ahamaide's album")
+			    .username("ahamaide")
+			    .build()
+	    );
 
-		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+		assertThat(actualAlbumDTO).isEqualTo(expectedAlbumDTO);
 	}
 
 	@SneakyThrows
 	private void initTables() {
 		this.jdbcTemplate.update(
-			new String(readAllBytes(Paths.get("src/test/resources/memory_init.sql"))),
+			new String(readAllBytes(Paths.get("src/test/resources/album_init.sql"))),
 			new HashMap<>()
 		);
 	}

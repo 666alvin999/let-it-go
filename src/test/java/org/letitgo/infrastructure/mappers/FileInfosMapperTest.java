@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
-import org.letitgo.domain.beans.fileinfosfields.Username;
+import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.FileInfosDTO;
 
 import java.io.FileInputStream;
