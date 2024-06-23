@@ -62,13 +62,13 @@ class RegisterNewUserTest {
 			new Password("password")
 		);
 
-		when(this.userPort.register(user)).thenReturn(new ActionSuccess(false, Optional.of("error")));
+		when(this.userPort.register(user)).thenReturn(new ActionSuccess(false, Optional.ofNullable("error")));
 
 		// Act
 		ActionSuccess actualRegister = this.registerNewUser.execute(user);
 
 		// Assert
-		ActionSuccess expectedRegister = new ActionSuccess(false, Optional.of("error"));
+		ActionSuccess expectedRegister = new ActionSuccess(false, Optional.ofNullable("error"));
 
 		assertThat(actualRegister).isEqualTo(expectedRegister);
 	}

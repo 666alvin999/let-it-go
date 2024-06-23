@@ -54,7 +54,7 @@ public class UserDao {
 					return new ActionSuccess(false, Optional.of("Un des champs est vide."));
 				}
 
-				return new ActionSuccess(false, Optional.of(e.getMessage()));
+				return new ActionSuccess(false, Optional.ofNullable(e.getMessage()));
 			}
 		} else if (!this.getUserByMail(userDTO.getMail()).isEmpty()) {
 			return new ActionSuccess(false, Optional.of("Ce mail est déjà pris."));

@@ -21,6 +21,9 @@ spring.datasource.password={password}
 spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
 
 spring.jpa.hibernate.ddl-auto=update
+dropbox.access-token={dropbox token access}
+spring.servlet.multipart.max-file-size=100MB
+spring.servlet.multipart.max-request-size=100MB
 ```
 
 Now, the app is ready to start.
