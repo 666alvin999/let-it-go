@@ -29,6 +29,12 @@ public class AlbumAdapter implements AlbumPort {
 		return this.albumDao.save(albumDTO);
 	}
 
+	public ActionSuccess delete(Album album) {
+		AlbumDTO albumDTO = this.albumMapper.mapToDTO(album);
+
+		return this.albumDao.delete(albumDTO);
+	}
+
 	public List<Album> getAlbumsByUsername(String username) {
 		List<AlbumDTO> albumDTOs = this.albumDao.getAlbumsByUsername(username);
 		return this.albumMapper.mapAllToAlbums(albumDTOs);

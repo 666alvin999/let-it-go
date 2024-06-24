@@ -13,7 +13,7 @@ import org.letitgo.infrastructure.mappers.MemoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.util.List;
 
 @Component
 public class MemoryAdapter implements MemoryPort {
@@ -41,14 +41,22 @@ public class MemoryAdapter implements MemoryPort {
 		return this.memoryDao.delete(memoryDTO);
 	}
 
-	public ActionSuccess uploadFile(FileInfos fileInfos) {
+	public ActionSuccess uploadMedia(FileInfos fileInfos) {
 		FileInfosDTO fileInfosDTO = this.fileInfosMapper.mapToDTO(fileInfos);
 		return this.dropboxDao.uploadFile(fileInfosDTO);
 	}
 
-	public ActionSuccess deleteFile(FileInfos fileInfos) {
+	public ActionSuccess deleteMedia(FileInfos fileInfos) {
 		FileInfosDTO fileInfosDTO = this.fileInfosMapper.mapToDTO(fileInfos);
 		return this.dropboxDao.deleteFile("/" + fileInfosDTO.getFileName());
+	}
+
+	public ActionSuccess deleteMediasByMediaNames(List<String> mediaNames) {
+		return this.dropboxDao.deleteMediaByMediaNames(mediaNames);
+	}
+
+	public List<String> getMediaNamesByAlbumNameAndUsername(String albumName, String username) {
+		return this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username).stream().map(mediaName -> username + "_" + mediaName).toList();
 	}
 
 }

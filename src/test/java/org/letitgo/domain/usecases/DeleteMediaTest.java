@@ -19,16 +19,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class DeleteFileTest {
+class DeleteMediaTest {
 
-	private DeleteFile deleteFile;
+	private DeleteMedia deleteMedia;
 
 	@Mock
 	private MemoryPort memoryPort;
 
 	@BeforeEach
 	public void setUp() {
-		this.deleteFile = new DeleteFile(memoryPort);
+		this.deleteMedia = new DeleteMedia(memoryPort);
 	}
 
 	@Test
@@ -41,10 +41,10 @@ class DeleteFileTest {
 			new Username("ahamaide")
 		);
 
-		when(this.memoryPort.deleteFile(fileInfos)).thenReturn(new ActionSuccess(true));
+		when(this.memoryPort.deleteMedia(fileInfos)).thenReturn(new ActionSuccess(true));
 
 		// Act
-		ActionSuccess actualActionSuccess = this.deleteFile.execute(fileInfos);
+		ActionSuccess actualActionSuccess = this.deleteMedia.execute(fileInfos);
 
 		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);

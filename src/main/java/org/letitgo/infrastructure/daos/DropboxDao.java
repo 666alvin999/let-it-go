@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
@@ -39,6 +40,18 @@ public class DropboxDao {
 			return new ActionSuccess(true);
 		} catch (Exception e) {
 			return new ActionSuccess(false, Optional.ofNullable(e.getMessage()));
+		}
+	}
+
+	public ActionSuccess deleteMediaByMediaNames(List<String> mediaNames) {
+		List<ActionSuccess> actionSuccesses = mediaNames.stream().map(fileName -> this.deleteFile("/" + fileName)).toList();
+
+		List<ActionSuccess> actionsFailed = actionSuccesses.stream().filter(actionSuccess -> !actionSuccess.success()).toList();
+
+		if (actionsFailed.isEmpty()) {
+			return new ActionSuccess(true);
+		} else {
+			return new ActionSuccess(false, Optional.of("La totalité ou une partie des fichiers n'a pas été supprimée, veuillez réessayer"));
 		}
 	}
 

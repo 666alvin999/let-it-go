@@ -19,6 +19,7 @@ public class AlbumDao {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	private final String SAVE = "INSERT INTO ALBUM VALUES (:albumName, :username)";
+	private final String DELETE = "DELETE FROM ALBUM WHERE ALBUM_NAME = :albumName AND USERNAME = :username";
 	private final String GET_BY_ALBUM_NAME_AND_USERNAME = "SELECT * FROM ALBUM WHERE ALBUM_NAME = :albumName AND USERNAME = :username";
 	private final String GET_BY_USERNAME = "SELECT * FROM ALBUM WHERE USERNAME = :username";
 
@@ -42,6 +43,21 @@ public class AlbumDao {
 			);
 
 			this.jdbcTemplate.update(SAVE, params);
+
+			return new ActionSuccess(true);
+		} catch (Exception e) {
+			return new ActionSuccess(false, Optional.ofNullable(e.getMessage()));
+		}
+	}
+
+	public ActionSuccess delete(AlbumDTO albumDTO) {
+		try {
+			Map<String, String> params = Map.of(
+				"albumName", albumDTO.getAlbumName(),
+				"username", albumDTO.getUsername()
+			);
+
+			this.jdbcTemplate.update(DELETE, params);
 
 			return new ActionSuccess(true);
 		} catch (Exception e) {

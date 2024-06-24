@@ -11,7 +11,6 @@ import org.letitgo.utils.EzDatabase;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,23 +53,40 @@ class AlbumDaoTest {
 	}
 
 	@Test
+	public void shouldDeleteAlbum() {
+		// Arrange
+		AlbumDTO albumDTO = albumDTO()
+			.albumName("trichier's album")
+			.username("trichier")
+			.build();
+
+		// Act
+		ActionSuccess actualActionSuccess = this.albumDao.delete(albumDTO);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
 	public void shouldGetAlbumByNameAndUsername() {
-	    // Arrange
+		// Arrange
 		AlbumDTO albumDTO = albumDTO()
 			.albumName("ahamaide's album")
 			.username("ahamaide")
 			.build();
 
-	    // Act
+		// Act
 		List<AlbumDTO> actualAlbumDTO = this.albumDao.getAlbumByAlbumNameAndUsername(albumDTO);
 
-	    // Assert
-	    List<AlbumDTO> expectedAlbumDTO = List.of(
-		    albumDTO()
-			    .albumName("ahamaide's album")
-			    .username("ahamaide")
-			    .build()
-	    );
+		// Assert
+		List<AlbumDTO> expectedAlbumDTO = List.of(
+			albumDTO()
+				.albumName("ahamaide's album")
+				.username("ahamaide")
+				.build()
+		);
 
 		assertThat(actualAlbumDTO).isEqualTo(expectedAlbumDTO);
 	}

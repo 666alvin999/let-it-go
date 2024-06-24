@@ -14,37 +14,34 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.FileInputStream;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class UploadFileTest {
+class DeleteMediasByMediaNamesTest {
 
-	private UploadFile uploadFile;
+	private DeleteMediasByMediaNames deleteMediasByMediaNames;
 
 	@Mock
 	private MemoryPort memoryPort;
 
 	@BeforeEach
 	public void setUp() {
-		this.uploadFile = new UploadFile(memoryPort);
+		this.deleteMediasByMediaNames = new DeleteMediasByMediaNames(memoryPort);
 	}
 
 	@Test
 	@SneakyThrows
 	public void shouldUploadFileSuccessfully() {
 		// Arrange
-		FileInfos fileInfos = new FileInfos(
-			new File(new FileInputStream("src/test/resources/test_img.png")),
-			new FileName("test_img.png"),
-			new Username("ahamaide")
-		);
+		List<String> mediaNames = List.of("test_img.png", "test_img.jpg");
 
-		when(this.memoryPort.uploadFile(fileInfos)).thenReturn(new ActionSuccess(true));
+		when(this.memoryPort.deleteMediasByMediaNames(mediaNames)).thenReturn(new ActionSuccess(true));
 
 		// Act
-		ActionSuccess actualActionSuccess = this.uploadFile.execute(fileInfos);
+		ActionSuccess actualActionSuccess = this.deleteMediasByMediaNames.execute(mediaNames);
 
 		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);

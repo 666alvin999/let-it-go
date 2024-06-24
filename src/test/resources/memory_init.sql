@@ -34,6 +34,6 @@ CREATE TABLE MEMORY (
 );
 
 INSERT INTO MEMORY
-VALUES ('ahamaide''s album', 'ahamaide', 'Je suis patate', NULL, '2024-01-01 12:12:12'),
+VALUES ('ahamaide''s album', 'ahamaide', 'Je suis patate', 'test_img.png', '2024-01-01 12:12:12'),
        ('trichier''s album', 'trichier', 'Je suis tomate', NULL, '2024-01-01 12:12:12'),
        ('ahamaide''s album', 'ahamaide', 'Je suis AAAAAH', NULL, '2024-01-01 12:12:13');

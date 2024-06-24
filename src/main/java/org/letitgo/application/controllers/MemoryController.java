@@ -7,14 +7,15 @@ import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
 import org.letitgo.domain.ports.MemoryPort;
-import org.letitgo.domain.usecases.DeleteFile;
+import org.letitgo.domain.usecases.DeleteMedia;
 import org.letitgo.domain.usecases.DeleteMemory;
 import org.letitgo.domain.usecases.SaveMemory;
-import org.letitgo.domain.usecases.UploadFile;
+import org.letitgo.domain.usecases.UploadMedia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +27,13 @@ import static java.util.Objects.nonNull;
 
 @Controller
 @RequestMapping("/memory")
+@CrossOrigin(origins = "*")
 public class MemoryController {
 
 	private final SaveMemory saveMemory;
 	private final DeleteMemory deleteMemory;
-	private final UploadFile uploadFile;
-	private final DeleteFile deleteFile;
+	private final UploadMedia uploadMedia;
+	private final DeleteMedia deleteMedia;
 	private final MemoryFormMapper memoryFormMapper;
 
 	private final ActionSuccessPresenter actionSuccessPresenter;
@@ -40,8 +42,8 @@ public class MemoryController {
 	public MemoryController(MemoryPort memoryPort, MemoryFormMapper memoryFormMapper, ActionSuccessPresenter actionSuccessPresenter) {
 		this.saveMemory = new SaveMemory(memoryPort);
 		this.deleteMemory = new DeleteMemory(memoryPort);
-		this.uploadFile = new UploadFile(memoryPort);
-		this.deleteFile = new DeleteFile(memoryPort);
+		this.uploadMedia = new UploadMedia(memoryPort);
+		this.deleteMedia = new DeleteMedia(memoryPort);
 		this.memoryFormMapper = memoryFormMapper;
 		this.actionSuccessPresenter = actionSuccessPresenter;
 	}
@@ -60,10 +62,10 @@ public class MemoryController {
 				return this.actionSuccessPresenter.present(new ActionSuccess(false, Optional.of("Erreur lors du transfert du fichier")));
 			}
 
-			ActionSuccess uploadFileSuccess = this.uploadFile.execute(fileInfos);
+			ActionSuccess uploadFileSuccess = this.uploadMedia.execute(fileInfos);
 
 			if (!uploadFileSuccess.success()) {
-				return this.actionSuccessPresenter.present(this.deleteMemory.execute(memory));
+				this.deleteMemory.execute(memory);
 			}
 
 			return this.actionSuccessPresenter.present(uploadFileSuccess);
@@ -81,7 +83,7 @@ public class MemoryController {
 		if (actionSuccess.success() && nonNull(memoryForm.getFileName())) {
 			FileInfos fileInfos = this.memoryFormMapper.mapToFileInfos(memoryForm);
 
-			ActionSuccess deleteFileSuccess = this.deleteFile.execute(fileInfos);
+			ActionSuccess deleteFileSuccess = this.deleteMedia.execute(fileInfos);
 
 			if (!deleteFileSuccess.success()) {
 				this.actionSuccessPresenter.present(this.saveMemory.execute(memory));

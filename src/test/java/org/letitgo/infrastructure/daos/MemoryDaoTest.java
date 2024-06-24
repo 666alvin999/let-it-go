@@ -11,7 +11,9 @@ import org.letitgo.utils.EzDatabase;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -69,6 +71,21 @@ class MemoryDaoTest {
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldGetMediaNamesByAlbumNameAndUsername() {
+	    // Arrange
+		String albumName = "ahamaide's album";
+		String username = "ahamaide";
+
+	    // Act
+		List<String> actualMediaNames = this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username);
+
+	    // Assert
+		List<String> expectedMediaNames = List.of("test_img.png");
+
+		assertThat(actualMediaNames).isEqualTo(expectedMediaNames);
 	}
 
 	@SneakyThrows

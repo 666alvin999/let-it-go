@@ -26,9 +26,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.letitgo.infrastructure.dtos.FileInfosDTO.fileInfosDTO;
 import static org.letitgo.infrastructure.dtos.MemoryDTO.memoryDTO;
 import static org.mockito.Mockito.when;
 
@@ -74,7 +74,7 @@ class MemoryAdapterTest {
 	}
 
 	@Test
-	public void shouldUploadFileSuccessfully() {
+	public void shouldUploadMediaSuccessfully() {
 		// Arrange
 		FileInfos fileInfos = this.getFileInfos();
 
@@ -84,7 +84,7 @@ class MemoryAdapterTest {
 		when(this.dropboxDao.uploadFile(fileInfosDTO)).thenReturn(new ActionSuccess(true));
 
 		// Act
-		ActionSuccess actualActionSuccess = this.memoryAdapter.uploadFile(fileInfos);
+		ActionSuccess actualActionSuccess = this.memoryAdapter.uploadMedia(fileInfos);
 
 		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
@@ -112,7 +112,7 @@ class MemoryAdapterTest {
 	}
 
 	@Test
-	public void shouldDeleteFileSuccessfully() {
+	public void shouldDeleteMediaSuccessfully() {
 		// Arrange
 		FileInfos fileInfos = this.getFileInfos();
 
@@ -122,12 +122,46 @@ class MemoryAdapterTest {
 		when(this.dropboxDao.deleteFile("/" + fileInfosDTO.getFileName())).thenReturn(new ActionSuccess(true));
 
 		// Act
-		ActionSuccess actualActionSuccess = this.memoryAdapter.deleteFile(fileInfos);
+		ActionSuccess actualActionSuccess = this.memoryAdapter.deleteMedia(fileInfos);
 
 		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldDeleteMediasByMediaNamesSuccessfully() {
+		// Arrange
+		List<String> fileNames = List.of("test_img.jpg", "test_img.jpeg");
+
+		when(this.dropboxDao.deleteMediaByMediaNames(fileNames)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.memoryAdapter.deleteMediasByMediaNames(fileNames);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldGetMediaNamesByAlbumNameAndUsername() {
+		// Arrange
+		String albumName = "ahamaide's album";
+		String username = "ahamaide";
+		List<String> mediaNames = List.of("test_img.png");
+
+		when(this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username)).thenReturn(mediaNames);
+
+		// Act
+		List<String> actualMediaNames = this.memoryAdapter.getMediaNamesByAlbumNameAndUsername(albumName, username);
+
+		// Assert
+		List<String> expectedMediaNames = List.of("test_img.png");
+
+		assertThat(actualMediaNames).isEqualTo(expectedMediaNames);
 	}
 
 	private Memory getMemory(Content content, MediaName mediaName) {
