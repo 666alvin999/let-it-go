@@ -24,6 +24,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,52 +55,11 @@ class MemoryAdapterTest {
 	}
 
 	@Test
-	public void shouldDeleteMemorySuccessfully() {
-		// Arrange
-		Memory memory = new Memory(
-			new AlbumName("ahamaide's album"),
-			new Username("ahamaide"),
-			new Content(null),
-			new MediaName(null),
-			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
-		);
-
-		MemoryDTO memoryDTO = memoryDTO()
-			.albumName("ahamaide's album")
-			.username("ahamaide")
-			.memoryDatetime("2024-01-01 12:12:12")
-			.build();
-
-		when(this.memoryMapper.mapToDTO(memory)).thenReturn(memoryDTO);
-		when(this.memoryDao.delete(memoryDTO)).thenReturn(new ActionSuccess(true));
-
-		// Act
-		ActionSuccess actualActionSuccess = this.memoryAdapter.delete(memory);
-
-		// Assert
-		ActionSuccess expectedMemory = new ActionSuccess(true);
-
-		assertThat(actualActionSuccess).isEqualTo(expectedMemory);
-	}
-
-	@Test
 	public void shouldSaveMemorySuccessfully() {
 		// Arrange
-		Memory memory = new Memory(
-			new AlbumName("ahamaide's album"),
-			new Username("ahamaide"),
-			new Content("salut c'est cool"),
-			new MediaName("test_img.jpg"),
-			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
-		);
+		Memory memory = this.getMemory(new Content("salut c'est cool"), new MediaName("test_img.jpg"));
 
-		MemoryDTO memoryDTO = memoryDTO()
-			.albumName("ahamaide's album")
-			.username("ahamaide")
-			.textContent("salut c'est cool")
-			.mediaName("test_img.jpg")
-			.memoryDatetime("2024-01-01 12:12:12")
-			.build();
+		MemoryDTO memoryDTO = this.getMemoryDTO();
 
 		when(this.memoryMapper.mapToDTO(memory)).thenReturn(memoryDTO);
 		when(this.memoryDao.save(memoryDTO)).thenReturn(new ActionSuccess(true));
@@ -114,21 +74,11 @@ class MemoryAdapterTest {
 	}
 
 	@Test
-	@SneakyThrows
 	public void shouldUploadFileSuccessfully() {
 		// Arrange
-		File file = new File(new FileInputStream("src/test/resources/test_img.png"));
+		FileInfos fileInfos = this.getFileInfos();
 
-		FileInfos fileInfos = new FileInfos(
-			file,
-			new FileName("test_img.png"),
-			new Username("ahamaide")
-		);
-
-		FileInfosDTO fileInfosDTO = fileInfosDTO()
-			.file(file.value())
-			.fileName("ahamaide_test_img.png")
-			.build();
+		FileInfosDTO fileInfosDTO = this.getFileInfosDTO();
 
 		when(this.fileInfosMapper.mapToDTO(fileInfos)).thenReturn(fileInfosDTO);
 		when(this.dropboxDao.uploadFile(fileInfosDTO)).thenReturn(new ActionSuccess(true));
@@ -140,6 +90,81 @@ class MemoryAdapterTest {
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldDeleteMemorySuccessfully() {
+		// Arrange
+		Memory memory = this.getMemory(new Content(null), new MediaName(null));
+
+		MemoryDTO memoryDTO = this.getMemoryDTO();
+
+		when(this.memoryMapper.mapToDTO(memory)).thenReturn(memoryDTO);
+		when(this.memoryDao.delete(memoryDTO)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.memoryAdapter.delete(memory);
+
+		// Assert
+		ActionSuccess expectedMemory = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedMemory);
+	}
+
+	@Test
+	public void shouldDeleteFileSuccessfully() {
+		// Arrange
+		FileInfos fileInfos = this.getFileInfos();
+
+		FileInfosDTO fileInfosDTO = this.getFileInfosDTO();
+
+		when(this.fileInfosMapper.mapToDTO(fileInfos)).thenReturn(fileInfosDTO);
+		when(this.dropboxDao.deleteFile("/" + fileInfosDTO.getFileName())).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.memoryAdapter.deleteFile(fileInfos);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	private Memory getMemory(Content content, MediaName mediaName) {
+		return new Memory(
+			new AlbumName("ahamaide's album"),
+			new Username("ahamaide"),
+			content,
+			mediaName,
+			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
+		);
+	}
+
+	private MemoryDTO getMemoryDTO() {
+		return memoryDTO()
+			.albumName("ahamaide's album")
+			.username("ahamaide")
+			.textContent("salut c'est cool")
+			.mediaName("test_img.jpg")
+			.memoryDatetime("2024-01-01 12:12:12")
+			.build();
+	}
+
+	@SneakyThrows
+	private FileInfos getFileInfos() {
+		File file = new File(new FileInputStream("src/test/resources/test_img.png"));
+
+		return new FileInfos(
+			file,
+			new FileName("test_img.png"),
+			new Username("ahamaide")
+		);
+	}
+
+	@SneakyThrows
+	private FileInfosDTO getFileInfosDTO() {
+		InputStream file = new FileInputStream("src/test/resources/test_img.png");
+		return new FileInfosDTO(file, "ahamaide_test_img.png");
 	}
 
 }

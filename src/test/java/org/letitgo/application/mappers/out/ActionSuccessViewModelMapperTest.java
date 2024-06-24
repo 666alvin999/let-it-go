@@ -9,13 +9,13 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ActionSuccessPresentationMapperTest {
+class ActionSuccessViewModelMapperTest {
 
-	private ActionSuccessPresentationMapper actionSuccessPresentationMapper;
+	private ActionSuccessViewModelMapper actionSuccessViewModelMapper;
 
 	@BeforeEach
 	public void setUp() {
-		this.actionSuccessPresentationMapper = new ActionSuccessPresentationMapper();
+		this.actionSuccessViewModelMapper = new ActionSuccessViewModelMapper();
 	}
 
 	@Test
@@ -24,7 +24,7 @@ class ActionSuccessPresentationMapperTest {
 		ActionSuccess actionSuccess = new ActionSuccess(true);
 
 		// Act
-		ActionSuccessViewModel actualViewModel = this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess);
+		ActionSuccessViewModel actualViewModel = this.actionSuccessViewModelMapper.mapToViewModel(actionSuccess);
 
 		// Assert
 		ActionSuccessViewModel expectedViewModel = new ActionSuccessViewModel(true, null);
@@ -38,7 +38,7 @@ class ActionSuccessPresentationMapperTest {
 		ActionSuccess actionSuccess = new ActionSuccess(false, Optional.ofNullable("error"));
 
 		// Act
-		ActionSuccessViewModel actualViewModel = this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess);
+		ActionSuccessViewModel actualViewModel = this.actionSuccessViewModelMapper.mapToViewModel(actionSuccess);
 
 		// Assert
 		ActionSuccessViewModel expectedViewModel = new ActionSuccessViewModel(false, "error");

@@ -5,7 +5,7 @@ import org.letitgo.domain.beans.ActionSuccess;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ActionSuccessPresentationMapper {
+public class ActionSuccessViewModelMapper {
 
 	public ActionSuccessViewModel mapToViewModel(ActionSuccess actionSuccess) {
 		return new ActionSuccessViewModel(

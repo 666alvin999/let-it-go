@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.application.dtos.out.ActionSuccessViewModel;
-import org.letitgo.application.mappers.out.ActionSuccessPresentationMapper;
+import org.letitgo.application.mappers.out.ActionSuccessViewModelMapper;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -21,11 +21,11 @@ class ActionSuccessPresenterTest {
 	private ActionSuccessPresenter presenter;
 
 	@Mock
-	private ActionSuccessPresentationMapper actionSuccessPresentationMapper;
+	private ActionSuccessViewModelMapper actionSuccessViewModelMapper;
 
 	@BeforeEach
 	public void setUp() {
-		this.presenter = new ActionSuccessPresenter(actionSuccessPresentationMapper);
+		this.presenter = new ActionSuccessPresenter(actionSuccessViewModelMapper);
 	}
 
 	@Test
@@ -34,7 +34,7 @@ class ActionSuccessPresenterTest {
 		ActionSuccess actionSuccess = new ActionSuccess(true);
 		ActionSuccessViewModel actionSuccessViewModel = new ActionSuccessViewModel(true, null);
 
-		when(this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess)).thenReturn(actionSuccessViewModel);
+		when(this.actionSuccessViewModelMapper.mapToViewModel(actionSuccess)).thenReturn(actionSuccessViewModel);
 
 		// Act
 		ResponseEntity<String> actualResponse = this.presenter.present(actionSuccess);
@@ -51,7 +51,7 @@ class ActionSuccessPresenterTest {
 		ActionSuccess actionSuccess = new ActionSuccess(false, Optional.ofNullable("error"));
 		ActionSuccessViewModel actionSuccessViewModel = new ActionSuccessViewModel(false, "error");
 
-		when(this.actionSuccessPresentationMapper.mapToViewModel(actionSuccess)).thenReturn(actionSuccessViewModel);
+		when(this.actionSuccessViewModelMapper.mapToViewModel(actionSuccess)).thenReturn(actionSuccessViewModel);
 
 		// Act
 		ResponseEntity<String> actualResponse = this.presenter.present(actionSuccess);

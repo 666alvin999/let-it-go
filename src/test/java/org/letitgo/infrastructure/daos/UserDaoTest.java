@@ -34,7 +34,7 @@ class UserDaoTest {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	@Mock
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@BeforeEach
 	public void setUp() {
@@ -88,7 +88,7 @@ class UserDaoTest {
 		ActionSuccess actualActionSuccess = this.userDao.register(userDTO);
 
 		// Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.ofNullable("L'utilisateur existe déjà."));
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("L'utilisateur existe déjà."));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}
@@ -145,7 +145,7 @@ class UserDaoTest {
 		ActionSuccess actualActionSuccess = this.userDao.logUserIn(userDTO);
 
 		// Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.ofNullable("Les informations de connexion sont invalides"));
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Les informations de connexion sont invalides"));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}
@@ -164,7 +164,7 @@ class UserDaoTest {
 		ActionSuccess actualActionSuccess = this.userDao.logUserIn(userDTO);
 
 		// Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.ofNullable("Les informations de connexion sont invalides"));
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Les informations de connexion sont invalides"));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}
@@ -181,7 +181,7 @@ class UserDaoTest {
 		ActionSuccess actualActionSuccess = this.userDao.logUserIn(userDTO);
 
 		// Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.ofNullable("Utilisateur introuvable"));
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Utilisateur introuvable"));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}
@@ -198,7 +198,7 @@ class UserDaoTest {
 		ActionSuccess actualActionSuccess = this.userDao.logUserIn(userDTO);
 
 		// Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.ofNullable("Utilisateur introuvable"));
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Utilisateur introuvable"));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}

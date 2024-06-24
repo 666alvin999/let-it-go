@@ -20,6 +20,7 @@ public class AlbumDao {
 
 	private final String SAVE = "INSERT INTO ALBUM VALUES (:albumName, :username)";
 	private final String GET_BY_ALBUM_NAME_AND_USERNAME = "SELECT * FROM ALBUM WHERE ALBUM_NAME = :albumName AND USERNAME = :username";
+	private final String GET_BY_USERNAME = "SELECT * FROM ALBUM WHERE USERNAME = :username";
 
 	public AlbumDao() {
 	}
@@ -46,6 +47,14 @@ public class AlbumDao {
 		} catch (Exception e) {
 			return new ActionSuccess(false, Optional.ofNullable(e.getMessage()));
 		}
+	}
+
+	public List<AlbumDTO> getAlbumsByUsername(String username) {
+		Map<String, String> params = Map.of(
+			"username", username
+		);
+
+		return this.jdbcTemplate.query(GET_BY_USERNAME, params, new BeanPropertyRowMapper<>(AlbumDTO.class));
 	}
 
 	public List<AlbumDTO> getAlbumByAlbumNameAndUsername(AlbumDTO albumDTO) {
