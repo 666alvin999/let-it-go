@@ -55,6 +55,25 @@ class AlbumAdapterTest {
 	}
 
 	@Test
+	public void shouldDeleteAlbumSuccessfully() {
+		// Arrange
+		Album album = this.getAlbums().getFirst();
+
+		AlbumDTO albumDTO = this.getAlbumDTOs().getFirst();
+
+		when(this.albumMapper.mapToDTO(album)).thenReturn(albumDTO);
+		when(this.albumDao.delete(albumDTO)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.albumAdapter.delete(album);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
 	public void shouldGetAlbumsByUsername() {
 	    // Arrange
 		String username = "ahamaide";

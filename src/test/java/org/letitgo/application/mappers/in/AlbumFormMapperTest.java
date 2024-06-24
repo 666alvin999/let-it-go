@@ -2,19 +2,17 @@ package org.letitgo.application.mappers.in;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.letitgo.application.dtos.in.CreateAlbumForm;
-import org.letitgo.domain.beans.ActionSuccess;
+import org.letitgo.application.dtos.in.AlbumForm;
 import org.letitgo.domain.beans.Album;
 import org.letitgo.domain.beans.albumfields.AlbumName;
 import org.letitgo.domain.beans.userfields.Username;
 import org.springframework.stereotype.Component;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.letitgo.application.dtos.in.CreateAlbumForm.createAlbumForm;
+import static org.letitgo.application.dtos.in.AlbumForm.createAlbumForm;
 
 @Component
-class CreateAlbumFormMapperTest {
+class AlbumFormMapperTest {
 
 	private CreateAlbumFormMapper createAlbumFormMapper;
 
@@ -26,13 +24,13 @@ class CreateAlbumFormMapperTest {
 	@Test
 	public void shouldMapToAlbum() {
 	    // Arrange
-		CreateAlbumForm createAlbumForm = createAlbumForm()
+		AlbumForm albumForm = createAlbumForm()
 			.albumName("album")
 			.username("ahamaide")
 			.build();
 
 	    // Act
-		Album actualAlbum = this.createAlbumFormMapper.mapToAlbum(createAlbumForm);
+		Album actualAlbum = this.createAlbumFormMapper.mapToAlbum(albumForm);
 
 	    // Assert
 		Album expectedAlbum = new Album(

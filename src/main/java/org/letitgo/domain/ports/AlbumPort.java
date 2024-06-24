@@ -9,6 +9,8 @@ public interface AlbumPort {
 
 	ActionSuccess save(Album album);
 
+	ActionSuccess delete(Album album);
+
 	List<Album> getAlbumsByUsername(String username);
 
 }

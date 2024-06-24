@@ -9,13 +9,13 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class CreateAlbumForm {
+public class AlbumForm {
 
 	private String albumName;
 	private String username;
 
-	public static CreateAlbumFormBuilder createAlbumForm() {
-		return new CreateAlbumFormBuilder();
+	public static AlbumFormBuilder createAlbumForm() {
+		return new AlbumFormBuilder();
 	}
 
 }
