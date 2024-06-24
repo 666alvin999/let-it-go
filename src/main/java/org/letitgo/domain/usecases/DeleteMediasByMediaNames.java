@@ -1,7 +1,6 @@
 package org.letitgo.domain.usecases;
 
 import org.letitgo.domain.beans.ActionSuccess;
-import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.ports.MemoryPort;
 
 import java.util.List;

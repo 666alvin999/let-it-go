@@ -1,6 +1,5 @@
 package org.letitgo.domain.usecases;
 
-import org.h2.command.dml.Delete;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +29,7 @@ class DeleteAlbumTest {
 
 	@Test
 	public void shouldSaveAlbumSuccessfully() {
-	    // Arrange
+		// Arrange
 		Album album = new Album(
 			new AlbumName("album"),
 			new Username("ahamaide")
@@ -38,10 +37,10 @@ class DeleteAlbumTest {
 
 		when(this.albumPort.delete(album)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.deleteAlbum.execute(album);
 
-	    // Assert
+		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

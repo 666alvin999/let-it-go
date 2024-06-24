@@ -3,7 +3,10 @@ package org.letitgo.infrastructure.mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.letitgo.domain.beans.Memory;
-import org.letitgo.domain.beans.memoryfields.*;
+import org.letitgo.domain.beans.memoryfields.AlbumName;
+import org.letitgo.domain.beans.memoryfields.Content;
+import org.letitgo.domain.beans.memoryfields.MediaName;
+import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.MemoryDTO;
 
@@ -23,7 +26,7 @@ class MemoryMapperTest {
 
 	@Test
 	public void shouldMapMemoryToMemoryDTO() {
-	    // Arrange
+		// Arrange
 		Memory memory = new Memory(
 			new AlbumName("ahamaide's album"),
 			new Username("ahamaide"),
@@ -32,10 +35,10 @@ class MemoryMapperTest {
 			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
 		);
 
-	    // Act
+		// Act
 		MemoryDTO actualMemoryDTO = this.memoryMapper.mapToDTO(memory);
 
-	    // Assert
+		// Assert
 		MemoryDTO expectedMemoryDTO = memoryDTO()
 			.albumName("ahamaide's album")
 			.username("ahamaide")

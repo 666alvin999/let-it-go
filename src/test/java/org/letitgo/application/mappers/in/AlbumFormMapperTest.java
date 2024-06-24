@@ -23,16 +23,16 @@ class AlbumFormMapperTest {
 
 	@Test
 	public void shouldMapToAlbum() {
-	    // Arrange
+		// Arrange
 		AlbumForm albumForm = createAlbumForm()
 			.albumName("album")
 			.username("ahamaide")
 			.build();
 
-	    // Act
+		// Act
 		Album actualAlbum = this.createAlbumFormMapper.mapToAlbum(albumForm);
 
-	    // Assert
+		// Assert
 		Album expectedAlbum = new Album(
 			new AlbumName("album"),
 			new Username("ahamaide")

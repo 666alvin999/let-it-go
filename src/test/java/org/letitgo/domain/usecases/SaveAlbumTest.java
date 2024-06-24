@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,7 +29,7 @@ class SaveAlbumTest {
 
 	@Test
 	public void shouldSaveAlbumSuccessfully() {
-	    // Arrange
+		// Arrange
 		Album album = new Album(
 			new AlbumName("album"),
 			new Username("ahamaide")
@@ -38,10 +37,10 @@ class SaveAlbumTest {
 
 		when(this.albumPort.save(album)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.saveAlbum.execute(album);
 
-	    // Assert
+		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

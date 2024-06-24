@@ -8,7 +8,6 @@ import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.AlbumDTO;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.letitgo.infrastructure.dtos.AlbumDTO.albumDTO;
 
 class AlbumMapperTest {
@@ -22,16 +21,16 @@ class AlbumMapperTest {
 
 	@Test
 	public void shouldMapToAlbumDTO() {
-	    // Arrange
+		// Arrange
 		Album album = new Album(
 			new AlbumName("album"),
 			new Username("ahamaide")
 		);
 
-	    // Act
+		// Act
 		AlbumDTO actualAlbumDTO = this.albumMapper.mapToDTO(album);
 
-	    // Assert
+		// Assert
 		AlbumDTO expectedAlbumDTO = albumDTO()
 			.albumName("album")
 			.username("ahamaide")

@@ -75,7 +75,7 @@ class AlbumAdapterTest {
 
 	@Test
 	public void shouldGetAlbumsByUsername() {
-	    // Arrange
+		// Arrange
 		String username = "ahamaide";
 
 		List<AlbumDTO> albumDTOs = this.getAlbumDTOs();
@@ -85,11 +85,11 @@ class AlbumAdapterTest {
 		when(this.albumDao.getAlbumsByUsername("ahamaide")).thenReturn(albumDTOs);
 		when(this.albumMapper.mapAllToAlbums(albumDTOs)).thenReturn(albums);
 
-	    // Act
-	    List<Album> actualAlbums = this.albumAdapter.getAlbumsByUsername(username);
+		// Act
+		List<Album> actualAlbums = this.albumAdapter.getAlbumsByUsername(username);
 
-	    // Assert
-	    List<Album> expectedAlbums = this.getAlbums();
+		// Assert
+		List<Album> expectedAlbums = this.getAlbums();
 
 		assertThat(actualAlbums).isEqualTo(expectedAlbums);
 	}

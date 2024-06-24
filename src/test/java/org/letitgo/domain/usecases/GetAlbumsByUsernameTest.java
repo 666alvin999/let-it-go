@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,13 +30,13 @@ class GetAlbumsByUsernameTest {
 
 	@Test
 	public void Name() {
-	    // Arrange
-	    when(this.albumPort.getAlbumsByUsername("ahamaide")).thenReturn(this.getAlbums());
+		// Arrange
+		when(this.albumPort.getAlbumsByUsername("ahamaide")).thenReturn(this.getAlbums());
 
-	    // Act
+		// Act
 		List<Album> actualAlbums = this.getAlbumsByUsername.execute("ahamaide");
 
-	    // Assert
+		// Assert
 		List<Album> expectedAlbums = this.getAlbums();
 
 		assertThat(actualAlbums).isEqualTo(expectedAlbums);

@@ -11,15 +11,12 @@ import org.letitgo.domain.beans.memoryfields.MediaName;
 import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.domain.ports.MemoryPort;
-import org.letitgo.infrastructure.dtos.MemoryDTO;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.letitgo.infrastructure.dtos.MemoryDTO.memoryDTO;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)

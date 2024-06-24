@@ -1,7 +1,6 @@
 package org.letitgo.application.dtos.out;
 
 import lombok.*;
-import org.letitgo.domain.beans.Album;
 
 @NoArgsConstructor
 @AllArgsConstructor

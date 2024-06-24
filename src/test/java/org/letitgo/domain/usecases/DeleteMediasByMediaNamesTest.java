@@ -5,15 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
-import org.letitgo.domain.beans.FileInfos;
-import org.letitgo.domain.beans.fileinfosfields.File;
-import org.letitgo.domain.beans.fileinfosfields.FileName;
-import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.domain.ports.MemoryPort;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.FileInputStream;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

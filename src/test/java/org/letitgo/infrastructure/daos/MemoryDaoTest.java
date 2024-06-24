@@ -11,7 +11,6 @@ import org.letitgo.utils.EzDatabase;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,14 +74,14 @@ class MemoryDaoTest {
 
 	@Test
 	public void shouldGetMediaNamesByAlbumNameAndUsername() {
-	    // Arrange
+		// Arrange
 		String albumName = "ahamaide's album";
 		String username = "ahamaide";
 
-	    // Act
+		// Act
 		List<String> actualMediaNames = this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username);
 
-	    // Assert
+		// Assert
 		List<String> expectedMediaNames = List.of("test_img.png");
 
 		assertThat(actualMediaNames).isEqualTo(expectedMediaNames);
