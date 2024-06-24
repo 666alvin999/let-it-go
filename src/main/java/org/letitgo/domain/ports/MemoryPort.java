@@ -12,4 +12,6 @@ public interface MemoryPort {
 
 	ActionSuccess uploadFile(FileInfos fileInfos);
 
+	ActionSuccess deleteFile(FileInfos fileInfos);
+
 }

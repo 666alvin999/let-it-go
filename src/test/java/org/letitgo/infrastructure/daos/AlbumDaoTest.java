@@ -75,6 +75,22 @@ class AlbumDaoTest {
 		assertThat(actualAlbumDTO).isEqualTo(expectedAlbumDTO);
 	}
 
+	@Test
+	public void shouldGetAlbumByUsername() {
+		// Act
+		List<AlbumDTO> actualAlbumDTO = this.albumDao.getAlbumsByUsername("ahamaide");
+
+		// Assert
+		List<AlbumDTO> expectedAlbumDTO = List.of(
+			albumDTO()
+				.albumName("ahamaide's album")
+				.username("ahamaide")
+				.build()
+		);
+
+		assertThat(actualAlbumDTO).isEqualTo(expectedAlbumDTO);
+	}
+
 	@SneakyThrows
 	private void initTables() {
 		this.jdbcTemplate.update(

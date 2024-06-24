@@ -9,11 +9,13 @@ import org.letitgo.infrastructure.mappers.AlbumMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class AlbumAdapter implements AlbumPort {
 
-	private AlbumDao albumDao;
-	private AlbumMapper albumMapper;
+	private final AlbumDao albumDao;
+	private final AlbumMapper albumMapper;
 
 	@Autowired
 	public AlbumAdapter(AlbumDao albumDao, AlbumMapper albumMapper) {
@@ -25,6 +27,11 @@ public class AlbumAdapter implements AlbumPort {
 		AlbumDTO albumDTO = this.albumMapper.mapToDTO(album);
 
 		return this.albumDao.save(albumDTO);
+	}
+
+	public List<Album> getAlbumsByUsername(String username) {
+		List<AlbumDTO> albumDTOs = this.albumDao.getAlbumsByUsername(username);
+		return this.albumMapper.mapAllToAlbums(albumDTOs);
 	}
 
 }

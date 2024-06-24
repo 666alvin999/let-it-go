@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class SaveMemoryForm {
+public class MemoryForm {
 
 	private MultipartFile multipartFile;
 	private String fileName;
@@ -19,8 +19,8 @@ public class SaveMemoryForm {
 	private String content;
 	private String memoryDatetime;
 
-	public static SaveMemoryFormBuilder saveMemoryForm() {
-		return new SaveMemoryFormBuilder();
+	public static MemoryFormBuilder saveMemoryForm() {
+		return new MemoryFormBuilder();
 	}
 
 }

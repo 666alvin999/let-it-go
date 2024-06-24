@@ -3,7 +3,7 @@ package org.letitgo.application.mappers.in;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.letitgo.application.dtos.in.SaveMemoryForm;
+import org.letitgo.application.dtos.in.MemoryForm;
 import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
 import org.letitgo.domain.beans.fileinfosfields.File;
@@ -21,15 +21,15 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.letitgo.application.dtos.in.SaveMemoryForm.saveMemoryForm;
+import static org.letitgo.application.dtos.in.MemoryForm.saveMemoryForm;
 
-class SaveMemoryFormMapperTest {
+class MemoryFormMapperTest {
 
-	private SaveMemoryFormMapper saveMemoryFormMapper;
+	private MemoryFormMapper memoryFormMapper;
 
 	@BeforeEach
 	public void setUp() {
-		this.saveMemoryFormMapper = new SaveMemoryFormMapper();
+		this.memoryFormMapper = new MemoryFormMapper();
 	}
 
 	@Test
@@ -38,14 +38,14 @@ class SaveMemoryFormMapperTest {
 		// Arrange
 		MultipartFile multipartFile = new MockMultipartFile("test_img", new FileInputStream("src/test/resources/test_img.png"));
 
-		SaveMemoryForm saveMemoryForm = saveMemoryForm()
+		MemoryForm memoryForm = saveMemoryForm()
 			.multipartFile(multipartFile)
 			.username("ahamaide")
 			.fileName("test_img.png")
 			.build();
 
 		// Act
-		FileInfos actualFileInfos = this.saveMemoryFormMapper.mapToFileInfos(saveMemoryForm);
+		FileInfos actualFileInfos = this.memoryFormMapper.mapToFileInfos(memoryForm);
 
 		// Assert
 		FileInfos expectedFileInfos = new FileInfos(
@@ -64,7 +64,7 @@ class SaveMemoryFormMapperTest {
 	@Test
 	public void shouldMapToMemory() {
 		// Arrange
-		SaveMemoryForm saveMemoryForm = saveMemoryForm()
+		MemoryForm memoryForm = saveMemoryForm()
 			.albumName("album")
 			.username("ahamaide")
 			.content("test content")
@@ -73,7 +73,7 @@ class SaveMemoryFormMapperTest {
 			.build();
 
 		// Act
-		Memory actualMemory = this.saveMemoryFormMapper.mapToMemory(saveMemoryForm);
+		Memory actualMemory = this.memoryFormMapper.mapToMemory(memoryForm);
 
 		// Assert
 		Memory expectedMemory = new Memory(

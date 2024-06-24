@@ -6,6 +6,8 @@ import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.AlbumDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class AlbumMapper {
 
@@ -21,6 +23,10 @@ public class AlbumMapper {
 			new AlbumName(albumDTO.getAlbumName()),
 			new Username(albumDTO.getUsername())
 		);
+	}
+
+	public List<Album> mapAllToAlbums(List<AlbumDTO> albumDTOs) {
+		return albumDTOs.stream().map(this::mapToAlbum).toList();
 	}
 
 }

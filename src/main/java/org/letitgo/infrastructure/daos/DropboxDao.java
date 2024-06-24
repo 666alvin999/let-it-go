@@ -32,4 +32,14 @@ public class DropboxDao {
 		}
 	}
 
+	public ActionSuccess deleteFile(String fileName) {
+		try {
+			this.client.files().deleteV2(fileName);
+
+			return new ActionSuccess(true);
+		} catch (Exception e) {
+			return new ActionSuccess(false, Optional.ofNullable(e.getMessage()));
+		}
+	}
+
 }
