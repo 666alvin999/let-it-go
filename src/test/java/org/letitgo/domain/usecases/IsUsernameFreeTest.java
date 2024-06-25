@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,16 +26,16 @@ class IsUsernameFreeTest {
 
 	@Test
 	public void shouldReturnUsernameIsFree() {
-	    // Arrange
+		// Arrange
 		String username = "ahamaide";
 
 		when(this.userPort.isUsernameFree(username)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.isUsernameFree.execute(username);
 
-	    // Assert
-	    ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}

@@ -247,11 +247,11 @@ class UserDaoTest {
 
 	@Test
 	public void shouldReturnUsernameIsTaken() {
-	    // Act
-	    ActionSuccess actualActionSuccess = this.userDao.isUsernameFree("ahamaide");
+		// Act
+		ActionSuccess actualActionSuccess = this.userDao.isUsernameFree("ahamaide");
 
-	    // Assert
-	    ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Ce nom d'utilisateur est déjà pris"));
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Ce nom d'utilisateur est déjà pris"));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}

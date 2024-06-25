@@ -13,7 +13,7 @@ public enum ColorTheme {
 
 	private final String value;
 
-	private ColorTheme(String value) {
+	ColorTheme(String value) {
 		this.value = value;
 	}
 }

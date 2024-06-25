@@ -131,15 +131,15 @@ class UserAdapterTest {
 
 	@Test
 	public void shouldReturnUsernameIsFree() {
-	    // Arrange
-	    String username = "ahamaide";
+		// Arrange
+		String username = "ahamaide";
 
 		when(this.userDao.isUsernameFree(username)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.userAdapter.isUsernameFree(username);
 
-	    // Assert
+		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

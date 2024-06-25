@@ -26,16 +26,16 @@ class IsMailFreeTest {
 
 	@Test
 	public void shouldReturnMailIsFree() {
-	    // Arrange
+		// Arrange
 		String mail = "mail";
 
 		when(this.userPort.isMailFree(mail)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.isMailFree.execute(mail);
 
-	    // Assert
-	    ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}

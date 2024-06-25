@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
-import static java.lang.String.valueOf;
 import static java.util.stream.Collectors.toSet;
 import static org.letitgo.infrastructure.dtos.MemoryDTO.memoryDTO;
 
