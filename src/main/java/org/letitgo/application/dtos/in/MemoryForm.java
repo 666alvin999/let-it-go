@@ -17,6 +17,7 @@ public class MemoryForm {
 	private String username;
 	private String albumName;
 	private String content;
+	private String mood;
 	private String memoryDatetime;
 
 	public static MemoryFormBuilder saveMemoryForm() {

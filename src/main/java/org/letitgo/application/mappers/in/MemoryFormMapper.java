@@ -3,6 +3,7 @@ package org.letitgo.application.mappers.in;
 import org.letitgo.application.dtos.in.MemoryForm;
 import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
+import org.letitgo.domain.beans.albumfields.AlbumName;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
 import org.letitgo.domain.beans.memoryfields.*;
@@ -49,7 +50,7 @@ public class MemoryFormMapper {
 			new Content(memoryForm.getContent()),
 			new MediaName(memoryForm.getFileName()),
 			new MemoryDatetime(LocalDateTime.parse(memoryForm.getMemoryDatetime(), this.dateFormatter)),
-			Mood.HAPPY
+			Mood.valueOf(memoryForm.getMood().toUpperCase())
 		);
 	}
 
