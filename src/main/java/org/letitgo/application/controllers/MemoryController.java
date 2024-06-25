@@ -1,6 +1,5 @@
 package org.letitgo.application.controllers;
 
-import com.google.gson.Gson;
 import org.letitgo.application.dtos.in.MemoryForm;
 import org.letitgo.application.mappers.in.MemoryFormMapper;
 import org.letitgo.application.presenters.ActionSuccessPresenter;

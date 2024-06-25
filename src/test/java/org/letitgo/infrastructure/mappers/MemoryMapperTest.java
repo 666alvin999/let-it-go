@@ -80,17 +80,17 @@ class MemoryMapperTest {
 
 	@Test
 	public void shouldReturnLocalDates() {
-	    // Arrange
+		// Arrange
 		Set<String> datetimes = Set.of("2024-01-01 12:12:12", "2024-02-01 12:12:12");
 
-	    // Act
+		// Act
 		Set<LocalDate> actualLocalDates = this.memoryMapper.mapToLocalDates(datetimes);
 
-	    // Assert
-	    Set<LocalDate> expectedLocalDates = Set.of(
+		// Assert
+		Set<LocalDate> expectedLocalDates = Set.of(
 			LocalDate.of(2024, 1, 1),
 			LocalDate.of(2024, 2, 1)
-	    );
+		);
 
 		assertThat(actualLocalDates).isEqualTo(expectedLocalDates);
 	}

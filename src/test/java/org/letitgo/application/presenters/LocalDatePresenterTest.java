@@ -3,7 +3,6 @@ package org.letitgo.application.presenters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.letitgo.application.dtos.out.AlbumViewModel;
 import org.letitgo.application.dtos.out.LocalDateViewModel;
 import org.letitgo.application.mappers.out.LocalDateViewModelMapper;
 import org.mockito.Mock;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.letitgo.application.dtos.out.AlbumViewModel.albumViewModel;
 import static org.letitgo.application.dtos.out.LocalDateViewModel.localDateViewModel;
 import static org.mockito.Mockito.when;
 

@@ -7,7 +7,6 @@ import org.letitgo.application.dtos.out.LocalDateViewModel;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.letitgo.application.dtos.out.LocalDateViewModel.localDateViewModel;
 
 class LocalDateViewModelMapperTest {
@@ -21,16 +20,16 @@ class LocalDateViewModelMapperTest {
 
 	@Test
 	public void shouldMapToViewModel() {
-	    // Arrange
-	    LocalDate localDate = LocalDate.of(2024, 1, 1);
+		// Arrange
+		LocalDate localDate = LocalDate.of(2024, 1, 1);
 
 		// Act
 		LocalDateViewModel actualViewModel = this.mapper.mapToViewModel(localDate);
 
-	    // Assert
-	    LocalDateViewModel expectedViewModel = localDateViewModel()
-		    .date("2024-01-01")
-		    .build();
+		// Assert
+		LocalDateViewModel expectedViewModel = localDateViewModel()
+			.date("2024-01-01")
+			.build();
 
 		assertThat(actualViewModel).isEqualTo(expectedViewModel);
 	}

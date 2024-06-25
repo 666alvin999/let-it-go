@@ -27,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -169,17 +168,17 @@ class MemoryAdapterTest {
 
 	@Test
 	public void shouldReturnDatesByUsername() {
-	    // Arrange
+		// Arrange
 		Set<String> datetimes = Set.of("2024-01-01 12:12:12", "2023-01-01 12:12:12");
 		Set<LocalDate> localDates = Set.of(LocalDate.of(2024, 1, 1), LocalDate.of(2023, 1, 1));
 
 		when(this.memoryDao.getDatesByUsername("ahamaide")).thenReturn(datetimes);
 		when(this.memoryMapper.mapToLocalDates(datetimes)).thenReturn(localDates);
 
-	    // Act
+		// Act
 		Set<LocalDate> actualDates = this.memoryAdapter.getDatesByUsername("ahamaide");
 
-	    // Assert
+		// Assert
 		Set<LocalDate> expectedDates = Set.of(LocalDate.of(2024, 1, 1), LocalDate.of(2023, 1, 1));
 
 		assertThat(actualDates).isEqualTo(expectedDates);

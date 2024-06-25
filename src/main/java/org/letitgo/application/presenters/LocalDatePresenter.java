@@ -1,11 +1,8 @@
 package org.letitgo.application.presenters;
 
 import com.google.gson.Gson;
-import org.letitgo.application.dtos.out.AlbumViewModel;
 import org.letitgo.application.dtos.out.LocalDateViewModel;
-import org.letitgo.application.mappers.out.AlbumViewModelMapper;
 import org.letitgo.application.mappers.out.LocalDateViewModelMapper;
-import org.letitgo.domain.beans.Album;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

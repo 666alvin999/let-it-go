@@ -90,10 +90,10 @@ class MemoryDaoTest {
 
 	@Test
 	public void shouldGetDatesByUsername() {
-	    // Act
-	    Set<String> actualDates = this.memoryDao.getDatesByUsername("ahamaide");
+		// Act
+		Set<String> actualDates = this.memoryDao.getDatesByUsername("ahamaide");
 
-	    // Assert
+		// Assert
 		Set<String> expectedDates = Set.of("2024-01-01 12:12:12", "2024-01-01 12:12:13");
 
 		assertThat(actualDates).isEqualTo(expectedDates);
