@@ -57,7 +57,7 @@ public class UserMapper {
 			new BirthDate(LocalDate.parse(userDTO.getBirthDate(), this.dateFormatter)),
 			identity,
 			new Password(userDTO.getPwd()),
-			ColorTheme.valueOf(nonNull(userDTO.getColorTheme()) ? userDTO.getColorTheme() : "null"),
+			ColorTheme.valueOf(nonNull(userDTO.getColorTheme()) ? userDTO.getColorTheme().toUpperCase() : "NULL"),
 			new ProfilePicture(userDTO.getProfilePicture())
 		);
 	}

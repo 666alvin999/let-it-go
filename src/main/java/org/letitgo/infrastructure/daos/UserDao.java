@@ -37,6 +37,9 @@ public class UserDao {
 	}
 
 	public ActionSuccess register(UserDTO userDTO) {
+		if ("null".equals(userDTO.getColorTheme())) {
+			return new ActionSuccess(false, Optional.of("Le thème de l'application n'a pas été choisi."));
+		}
 		if (this.getUserByUsername(userDTO.getUsername()).isEmpty() && this.getUserByMail(userDTO.getMail()).isEmpty()) {
 			try {
 				Map<String, String> params = Map.of(

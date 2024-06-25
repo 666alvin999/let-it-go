@@ -32,7 +32,7 @@ public class RegisterFormMapper {
 			new BirthDate(LocalDate.parse(registerForm.getBirthDate(), this.dateFormatter)),
 			identity,
 			new Password(registerForm.getPassword()),
-			ColorTheme.valueOf(nonNull(registerForm.getColorTheme()) ? registerForm.getColorTheme() : "null"),
+			ColorTheme.valueOf(nonNull(registerForm.getColorTheme()) ? registerForm.getColorTheme().toUpperCase() : "NULL"),
 			new ProfilePicture(null)
 		);
 	}
