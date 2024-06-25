@@ -42,7 +42,9 @@ class UserAdapterTest {
 			new Mail("mail"),
 			new BirthDate(LocalDate.of(2024, 1, 1)),
 			Identity.HE,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.URANUS,
+			new ProfilePicture(null)
 		);
 
 		UserDTO userDTO = userDTO()
@@ -51,6 +53,8 @@ class UserAdapterTest {
 			.birthDate("2024-01-01")
 			.userIdentity("HE")
 			.pwd("password")
+			.colorTheme("uranus")
+			.profilePicture(null)
 			.build();
 
 		when(this.userMapper.mapToDTO(user)).thenReturn(userDTO);
@@ -73,7 +77,9 @@ class UserAdapterTest {
 			new Mail(null),
 			new BirthDate(null),
 			null,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.NULL,
+			new ProfilePicture(null)
 		);
 
 		UserDTO userDTO = userDTO()
@@ -101,7 +107,9 @@ class UserAdapterTest {
 			new Mail("mail"),
 			new BirthDate(null),
 			null,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.NULL,
+			new ProfilePicture(null)
 		);
 
 		UserDTO userDTO = userDTO()

@@ -37,7 +37,9 @@ class RegisterNewUserTest {
 			new Mail("mail"),
 			new BirthDate(LocalDate.of(1990, 1, 1)),
 			Identity.HE,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.URANUS,
+			new ProfilePicture(null)
 		);
 
 		when(this.userPort.register(user)).thenReturn(new ActionSuccess(true));
@@ -59,7 +61,9 @@ class RegisterNewUserTest {
 			new Mail("mail"),
 			new BirthDate(LocalDate.of(1990, 1, 1)),
 			Identity.HE,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.URANUS,
+			new ProfilePicture(null)
 		);
 
 		when(this.userPort.register(user)).thenReturn(new ActionSuccess(false, Optional.ofNullable("error")));

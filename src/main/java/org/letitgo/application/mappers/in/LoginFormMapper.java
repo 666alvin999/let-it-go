@@ -2,10 +2,7 @@ package org.letitgo.application.mappers.in;
 
 import org.letitgo.application.dtos.in.LoginForm;
 import org.letitgo.domain.beans.User;
-import org.letitgo.domain.beans.userfields.BirthDate;
-import org.letitgo.domain.beans.userfields.Mail;
-import org.letitgo.domain.beans.userfields.Password;
-import org.letitgo.domain.beans.userfields.Username;
+import org.letitgo.domain.beans.userfields.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +14,9 @@ public class LoginFormMapper {
 			new Mail(loginForm.getMail()),
 			new BirthDate(null),
 			null,
-			new Password(loginForm.getPassword())
+			new Password(loginForm.getPassword()),
+			ColorTheme.NULL,
+			new ProfilePicture(null)
 		);
 	}
 

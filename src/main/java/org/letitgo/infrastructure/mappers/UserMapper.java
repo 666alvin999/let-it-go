@@ -35,6 +35,8 @@ public class UserMapper {
 			.birthDate(birthDate)
 			.userIdentity(identity)
 			.pwd(user.password().value())
+			.colorTheme(user.colorTheme().getValue())
+			.profilePicture(user.profilePicture().value())
 			.build();
 	}
 
@@ -54,7 +56,9 @@ public class UserMapper {
 			new Mail(userDTO.getMail()),
 			new BirthDate(LocalDate.parse(userDTO.getBirthDate(), this.dateFormatter)),
 			identity,
-			new Password(userDTO.getPwd())
+			new Password(userDTO.getPwd()),
+			ColorTheme.valueOf(nonNull(userDTO.getColorTheme()) ? userDTO.getColorTheme() : "null"),
+			new ProfilePicture(userDTO.getProfilePicture())
 		);
 	}
 }

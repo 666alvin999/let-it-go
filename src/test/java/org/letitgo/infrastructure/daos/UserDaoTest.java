@@ -54,6 +54,7 @@ class UserDaoTest {
 			.birthDate("2024-01-01")
 			.userIdentity("SHE")
 			.pwd("password")
+			.colorTheme("uranus")
 			.build();
 
 		when(this.passwordEncoder.encode("password")).thenReturn("encoded");
@@ -68,6 +69,7 @@ class UserDaoTest {
 			.birthDate("2024-01-01")
 			.userIdentity("SHE")
 			.pwd("encoded")
+			.colorTheme("uranus")
 			.build();
 
 		assertThat(this.userDao.getUserByUsername("macret")).isEqualTo(List.of(expectedUserDTO));
@@ -216,6 +218,7 @@ class UserDaoTest {
 				.birthDate("2024-01-01")
 				.userIdentity("HE")
 				.pwd("password")
+				.colorTheme("uranus")
 				.build()
 		);
 
@@ -235,6 +238,7 @@ class UserDaoTest {
 				.birthDate("2024-01-01")
 				.userIdentity("HE")
 				.pwd("password")
+				.colorTheme("uranus")
 				.build()
 		);
 

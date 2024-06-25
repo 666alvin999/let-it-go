@@ -28,7 +28,9 @@ class UserMapperTest {
 			new Mail("mail"),
 			new BirthDate(LocalDate.of(2024, 1, 1)),
 			Identity.HE,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.URANUS,
+			new ProfilePicture(null)
 		);
 
 		// Act
@@ -41,6 +43,7 @@ class UserMapperTest {
 			.birthDate("2024-01-01")
 			.userIdentity("HE")
 			.pwd("password")
+			.colorTheme("uranus")
 			.build();
 
 		assertThat(actualUserDTO).isEqualTo(expectedUserDTO);
@@ -55,6 +58,7 @@ class UserMapperTest {
 			.birthDate("2024-01-01")
 			.userIdentity("HE")
 			.pwd("password")
+			.colorTheme("uranus")
 			.build();
 
 		// Act
@@ -66,7 +70,9 @@ class UserMapperTest {
 			new Mail("mail"),
 			new BirthDate(LocalDate.of(2024, 1, 1)),
 			Identity.HE,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.URANUS,
+			new ProfilePicture(null)
 		);
 
 		assertThat(actualUser).isEqualTo(expectedUser);

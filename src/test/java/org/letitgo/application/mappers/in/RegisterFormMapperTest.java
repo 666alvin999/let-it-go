@@ -32,6 +32,7 @@ class RegisterFormMapperTest {
 			.birthDate("2024-01-01")
 			.identity("HE")
 			.password("password")
+			.colorTheme("uranus")
 			.build();
 
 		// Act
@@ -43,7 +44,9 @@ class RegisterFormMapperTest {
 			new Mail("mail"),
 			new BirthDate(LocalDate.of(2024, 1, 1)),
 			Identity.HE,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.URANUS,
+			new ProfilePicture(null)
 		);
 
 		assertThat(actualUser).isEqualTo(expectedUser);

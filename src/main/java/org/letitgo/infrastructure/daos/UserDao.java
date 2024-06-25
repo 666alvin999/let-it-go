@@ -24,7 +24,7 @@ public class UserDao {
 
 	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-	private final String REGISTER = "INSERT INTO USERS VALUES (:username, :birthDate, :identity, :password, :mail)";
+	private final String REGISTER = "INSERT INTO USERS (USERNAME, MAIL, BIRTH_DATE, USER_IDENTITY, PWD, COLOR_THEME) VALUES (:username, :mail, :birthDate, :identity, :password, :colorTheme)";
 	private final String GET_BY_USERNAME = "SELECT * FROM USERS WHERE USERNAME = :username";
 	private final String GET_BY_MAIL = "SELECT * FROM USERS WHERE MAIL = :mail";
 
@@ -44,7 +44,8 @@ public class UserDao {
 					"mail", userDTO.getMail(),
 					"birthDate", userDTO.getBirthDate(),
 					"identity", userDTO.getUserIdentity(),
-					"password", this.passwordEncoder.encode(userDTO.getPwd())
+					"password", this.passwordEncoder.encode(userDTO.getPwd()),
+					"colorTheme", userDTO.getColorTheme()
 				);
 
 				this.jdbcTemplate.update(REGISTER, params);

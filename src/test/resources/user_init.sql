@@ -7,7 +7,8 @@ CREATE TABLE USERS (
     BIRTH_DATE      VARCHAR(10) NOT NULL,
     USER_IDENTITY   VARCHAR(5) NOT NULL,
     PWD             VARCHAR(255) NOT NULL,
-    MAIL            VARCHAR(255) NOT NULL UNIQUE
+    MAIL            VARCHAR(255) NOT NULL UNIQUE,
+    COLOR_THEME     VARCHAR(32) NOT NULL
 );
 
-INSERT INTO USERS VALUES ('ahamaide', '2024-01-01', 'HE', 'password', 'mail');
+INSERT INTO USERS VALUES ('ahamaide', '2024-01-01', 'HE', 'password', 'mail', 'uranus');

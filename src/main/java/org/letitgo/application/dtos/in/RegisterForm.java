@@ -16,6 +16,7 @@ public class RegisterForm {
 	private String birthDate;
 	private String identity;
 	private String password;
+	private String colorTheme;
 
 	public static RegisterFormBuilder registerForm() {
 		return RegisterForm.builder();

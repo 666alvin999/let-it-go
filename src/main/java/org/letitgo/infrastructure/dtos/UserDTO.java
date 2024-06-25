@@ -16,6 +16,8 @@ public class UserDTO {
 	private String birthDate;
 	private String userIdentity;
 	private String pwd;
+	private String colorTheme;
+	private String profilePicture;
 
 	public static UserDTOBuilder userDTO() {
 		return UserDTO.builder();

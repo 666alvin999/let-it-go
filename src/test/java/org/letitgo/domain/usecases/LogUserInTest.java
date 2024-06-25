@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.User;
-import org.letitgo.domain.beans.userfields.BirthDate;
-import org.letitgo.domain.beans.userfields.Mail;
-import org.letitgo.domain.beans.userfields.Password;
-import org.letitgo.domain.beans.userfields.Username;
+import org.letitgo.domain.beans.userfields.*;
 import org.letitgo.domain.ports.UserPort;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -39,7 +36,9 @@ class LogUserInTest {
 			new Mail(null),
 			new BirthDate(null),
 			null,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.NULL,
+			new ProfilePicture(null)
 		);
 
 		when(this.userPort.logUserIn(user)).thenReturn(new ActionSuccess(true));
@@ -61,7 +60,9 @@ class LogUserInTest {
 			new Mail("mail"),
 			new BirthDate(null),
 			null,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.NULL,
+			new ProfilePicture(null)
 		);
 
 		when(this.userPort.logUserIn(user)).thenReturn(new ActionSuccess(true));
@@ -83,16 +84,18 @@ class LogUserInTest {
 			new Mail(null),
 			new BirthDate(null),
 			null,
-			new Password("password")
+			new Password("password"),
+			ColorTheme.NULL,
+			new ProfilePicture(null)
 		);
 
-		when(this.userPort.logUserIn(user)).thenReturn(new ActionSuccess(false, Optional.ofNullable("Le mot de passe ou l'identifiant est erroné.")));
+		when(this.userPort.logUserIn(user)).thenReturn(new ActionSuccess(false, Optional.of("Le mot de passe ou l'identifiant est erroné.")));
 
 		// Act
 		ActionSuccess actualActionSuccess = this.logUserIn.execute(user);
 
 		// Assert
-		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.ofNullable("Le mot de passe ou l'identifiant est erroné."));
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Le mot de passe ou l'identifiant est erroné."));
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}

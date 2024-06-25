@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static java.util.Objects.nonNull;
+
 @Component
 public class RegisterFormMapper {
 
@@ -29,7 +31,9 @@ public class RegisterFormMapper {
 			new Mail(registerForm.getMail()),
 			new BirthDate(LocalDate.parse(registerForm.getBirthDate(), this.dateFormatter)),
 			identity,
-			new Password(registerForm.getPassword())
+			new Password(registerForm.getPassword()),
+			ColorTheme.valueOf(nonNull(registerForm.getColorTheme()) ? registerForm.getColorTheme() : "null"),
+			new ProfilePicture(null)
 		);
 	}
 
