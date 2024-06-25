@@ -33,4 +33,12 @@ public class UserAdapter implements UserPort {
 		return this.userDao.logUserIn(userDTO);
 	}
 
+	public ActionSuccess isUsernameFree(String username) {
+		return this.userDao.isUsernameFree(username);
+	}
+
+	public ActionSuccess isMailFree(String mail) {
+		return this.userDao.isMailFree(mail);
+	}
+
 }

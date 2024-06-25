@@ -241,6 +241,50 @@ class UserDaoTest {
 		assertThat(actualUserDTO).isEqualTo(expectedUserDTO);
 	}
 
+	@Test
+	public void shouldReturnUsernameIsTaken() {
+	    // Act
+	    ActionSuccess actualActionSuccess = this.userDao.isUsernameFree("ahamaide");
+
+	    // Assert
+	    ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Ce nom d'utilisateur est déjà pris"));
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldReturnMailIsTaken() {
+		// Act
+		ActionSuccess actualActionSuccess = this.userDao.isMailFree("mail");
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(false, Optional.of("Ce mail est déjà pris"));
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldReturnUsernameIsFree() {
+		// Act
+		ActionSuccess actualActionSuccess = this.userDao.isUsernameFree("ahamaide12");
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldReturnMailIsFree() {
+		// Act
+		ActionSuccess actualActionSuccess = this.userDao.isMailFree("mail12");
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
 	@SneakyThrows
 	private void initTables() {
 		this.jdbcTemplate.update(

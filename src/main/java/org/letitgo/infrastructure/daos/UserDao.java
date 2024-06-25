@@ -102,4 +102,20 @@ public class UserDao {
 
 		return this.jdbcTemplate.query(GET_BY_MAIL, params, new BeanPropertyRowMapper<>(UserDTO.class));
 	}
+
+	public ActionSuccess isUsernameFree(String username) {
+		if (this.getUserByUsername(username).isEmpty()) {
+			return new ActionSuccess(true);
+		}
+
+		return new ActionSuccess(false, Optional.of("Ce nom d'utilisateur est déjà pris"));
+	}
+
+	public ActionSuccess isMailFree(String mail) {
+		if (this.getUserByMail(mail).isEmpty()) {
+			return new ActionSuccess(true);
+		}
+
+		return new ActionSuccess(false, Optional.of("Ce mail est déjà pris"));
+	}
 }

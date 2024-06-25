@@ -9,4 +9,8 @@ public interface UserPort {
 
 	ActionSuccess logUserIn(User user);
 
+	ActionSuccess isUsernameFree(String username);
+
+	ActionSuccess isMailFree(String mail);
+
 }

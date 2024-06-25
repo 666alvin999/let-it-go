@@ -121,4 +121,36 @@ class UserAdapterTest {
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}
 
+	@Test
+	public void shouldReturnUsernameIsFree() {
+	    // Arrange
+	    String username = "ahamaide";
+
+		when(this.userDao.isUsernameFree(username)).thenReturn(new ActionSuccess(true));
+
+	    // Act
+		ActionSuccess actualActionSuccess = this.userAdapter.isUsernameFree(username);
+
+	    // Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldReturnMailIsFree() {
+		// Arrange
+		String mail = "mail";
+
+		when(this.userDao.isMailFree(mail)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.isMailFree(mail);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
 }
