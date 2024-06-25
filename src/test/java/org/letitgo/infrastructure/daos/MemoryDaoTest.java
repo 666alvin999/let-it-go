@@ -44,6 +44,7 @@ class MemoryDaoTest {
 			.username("ahamaide")
 			.textContent("as;dlfj;aldjsf;")
 			.memoryDatetime("2023-12-31:12-45-03")
+			.mood("happy")
 			.build();
 
 		// Act

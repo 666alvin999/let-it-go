@@ -3,10 +3,7 @@ package org.letitgo.infrastructure.mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.letitgo.domain.beans.Memory;
-import org.letitgo.domain.beans.memoryfields.AlbumName;
-import org.letitgo.domain.beans.memoryfields.Content;
-import org.letitgo.domain.beans.memoryfields.MediaName;
-import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
+import org.letitgo.domain.beans.memoryfields.*;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.MemoryDTO;
 
@@ -34,7 +31,8 @@ class MemoryMapperTest {
 			new Username("ahamaide"),
 			new Content("salut c'est cool"),
 			new MediaName("test_img.jpg"),
-			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
+			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12)),
+			Mood.HAPPY
 		);
 
 		// Act
@@ -47,6 +45,7 @@ class MemoryMapperTest {
 			.textContent("salut c'est cool")
 			.mediaName("test_img.jpg")
 			.memoryDatetime("2024-01-01 12:12:12")
+			.mood("happy")
 			.build();
 
 		assertThat(actualMemoryDTO).isEqualTo(expectedMemoryDTO);
@@ -61,6 +60,7 @@ class MemoryMapperTest {
 			.textContent("salut c'est cool")
 			.mediaName("test_img.jpg")
 			.memoryDatetime("2024-01-01 12:12:12")
+			.mood("happy")
 			.build();
 
 		// Act
@@ -72,7 +72,8 @@ class MemoryMapperTest {
 			new Username("ahamaide"),
 			new Content("salut c'est cool"),
 			new MediaName("test_img.jpg"),
-			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
+			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12)),
+			Mood.HAPPY
 		);
 
 		assertThat(actualMemory).isEqualTo(expectedMemory);

@@ -16,6 +16,7 @@ public class MemoryDTO {
 	private String textContent;
 	private String mediaName;
 	private String memoryDatetime;
+	private String mood;
 
 	public static MemoryDTOBuilder memoryDTO() {
 		return new MemoryDTOBuilder();

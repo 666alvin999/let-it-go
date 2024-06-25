@@ -9,10 +9,7 @@ import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
-import org.letitgo.domain.beans.memoryfields.AlbumName;
-import org.letitgo.domain.beans.memoryfields.Content;
-import org.letitgo.domain.beans.memoryfields.MediaName;
-import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
+import org.letitgo.domain.beans.memoryfields.*;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.daos.DropboxDao;
 import org.letitgo.infrastructure.daos.MemoryDao;
@@ -190,7 +187,8 @@ class MemoryAdapterTest {
 			new Username("ahamaide"),
 			content,
 			mediaName,
-			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
+			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12)),
+			Mood.HAPPY
 		);
 	}
 

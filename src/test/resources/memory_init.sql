@@ -29,11 +29,12 @@ CREATE TABLE MEMORY (
     TEXT_CONTENT VARCHAR(255),
     MEDIA_NAME VARCHAR(255),
     MEMORY_DATETIME VARCHAR(19) NOT NULL,
+    MOOD VARCHAR(32) NOT NULL,
     PRIMARY KEY (ALBUM_NAME, USERNAME, MEMORY_DATETIME),
     FOREIGN KEY (ALBUM_NAME, USERNAME) REFERENCES ALBUM(ALBUM_NAME, USERNAME) ON DELETE CASCADE
 );
 
 INSERT INTO MEMORY
-VALUES ('ahamaide''s album', 'ahamaide', 'Je suis patate', 'test_img.png', '2024-01-01 12:12:12'),
-       ('trichier''s album', 'trichier', 'Je suis tomate', NULL, '2024-01-01 12:12:12'),
-       ('ahamaide''s album', 'ahamaide', 'Je suis AAAAAH', NULL, '2024-01-01 12:12:13');
+VALUES ('ahamaide''s album', 'ahamaide', 'Je suis patate', 'test_img.png', '2024-01-01 12:12:12', 'happy'),
+       ('trichier''s album', 'trichier', 'Je suis tomate', NULL, '2024-01-01 12:12:12', 'sad'),
+       ('ahamaide''s album', 'ahamaide', 'Je suis AAAAAH', NULL, '2024-01-01 12:12:13', 'angry');

@@ -5,10 +5,7 @@ import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
-import org.letitgo.domain.beans.memoryfields.AlbumName;
-import org.letitgo.domain.beans.memoryfields.Content;
-import org.letitgo.domain.beans.memoryfields.MediaName;
-import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
+import org.letitgo.domain.beans.memoryfields.*;
 import org.letitgo.domain.beans.userfields.Username;
 import org.springframework.stereotype.Component;
 
@@ -51,7 +48,8 @@ public class MemoryFormMapper {
 			new Username(memoryForm.getUsername()),
 			new Content(memoryForm.getContent()),
 			new MediaName(memoryForm.getFileName()),
-			new MemoryDatetime(LocalDateTime.parse(memoryForm.getMemoryDatetime(), this.dateFormatter))
+			new MemoryDatetime(LocalDateTime.parse(memoryForm.getMemoryDatetime(), this.dateFormatter)),
+			Mood.HAPPY
 		);
 	}
 

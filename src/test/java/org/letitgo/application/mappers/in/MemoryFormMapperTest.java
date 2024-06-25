@@ -8,10 +8,7 @@ import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
-import org.letitgo.domain.beans.memoryfields.AlbumName;
-import org.letitgo.domain.beans.memoryfields.Content;
-import org.letitgo.domain.beans.memoryfields.MediaName;
-import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
+import org.letitgo.domain.beans.memoryfields.*;
 import org.letitgo.domain.beans.userfields.Username;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -81,7 +78,8 @@ class MemoryFormMapperTest {
 			new Username("ahamaide"),
 			new Content("test content"),
 			new MediaName("test_img.png"),
-			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
+			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12)),
+			Mood.HAPPY
 		);
 
 		assertThat(actualMemory).isEqualTo(expectedMemory);

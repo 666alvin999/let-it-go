@@ -18,7 +18,7 @@ public class MemoryDao {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-	private final String SAVE_BEGINNING = "INSERT INTO MEMORY (ALBUM_NAME, USERNAME";
+	private final String SAVE_BEGINNING = "INSERT INTO MEMORY (ALBUM_NAME, USERNAME, MEMORY_DATETIME, MOOD";
 	private final String DELETE = "DELETE FROM MEMORY WHERE ALBUM_NAME = :albumName AND USERNAME = :username AND MEMORY_DATETIME = :memoryDatetime";
 	private final String GET_BY_USERNAME_AND_DATETIME = "SELECT * FROM MEMORY WHERE USERNAME = :username AND MEMORY_DATETIME = :memoryDatetime";
 	private final String GET_MEDIA_NAMES_BY_USERNAME_AND_ALBUM_NAME = "SELECT MEDIA_NAME FROM MEMORY WHERE ALBUM_NAME = :albumName AND USERNAME = :username AND MEDIA_NAME IS NOT NULL";
@@ -45,26 +45,23 @@ public class MemoryDao {
 			params.put("albumName", memoryDTO.getAlbumName());
 			params.put("username", memoryDTO.getUsername());
 			params.put("memoryDatetime", memoryDTO.getMemoryDatetime());
+			params.put("mood", memoryDTO.getMood());
 
 			if (nonNull(memoryDTO.getTextContent())) {
 				params.put("textContent", memoryDTO.getTextContent());
 				query += ", TEXT_CONTENT";
 			}
 
-			query += ", MEMORY_DATETIME";
-
 			if (nonNull(memoryDTO.getMediaName())) {
 				params.put("mediaName", memoryDTO.getMediaName());
 				query += ", MEDIA_NAME";
 			}
 
-			query += ") VALUES (:albumName, :username";
+			query += ") VALUES (:albumName, :username, :memoryDatetime, :mood";
 
 			if (nonNull(memoryDTO.getTextContent())) {
 				query += ", :textContent";
 			}
-
-			query += ", :memoryDatetime";
 
 			if (nonNull(memoryDTO.getMediaName())) {
 				query += ", :mediaName";

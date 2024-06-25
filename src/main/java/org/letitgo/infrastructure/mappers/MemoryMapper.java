@@ -1,10 +1,7 @@
 package org.letitgo.infrastructure.mappers;
 
 import org.letitgo.domain.beans.Memory;
-import org.letitgo.domain.beans.memoryfields.AlbumName;
-import org.letitgo.domain.beans.memoryfields.Content;
-import org.letitgo.domain.beans.memoryfields.MediaName;
-import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
+import org.letitgo.domain.beans.memoryfields.*;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.MemoryDTO;
 import org.springframework.stereotype.Component;
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
+import static java.lang.String.valueOf;
 import static java.util.stream.Collectors.toSet;
 import static org.letitgo.infrastructure.dtos.MemoryDTO.memoryDTO;
 
@@ -29,6 +27,7 @@ public class MemoryMapper {
 			.textContent(memory.content().value())
 			.mediaName(memory.mediaName().value())
 			.memoryDatetime(this.dateFormatter.format(memory.memoryDatetime().value()))
+			.mood(memory.mood().getValue())
 			.build();
 	}
 
@@ -38,7 +37,8 @@ public class MemoryMapper {
 			new Username(memoryDTO.getUsername()),
 			new Content(memoryDTO.getTextContent()),
 			new MediaName(memoryDTO.getMediaName()),
-			new MemoryDatetime(LocalDateTime.parse(memoryDTO.getMemoryDatetime(), this.dateFormatter))
+			new MemoryDatetime(LocalDateTime.parse(memoryDTO.getMemoryDatetime(), this.dateFormatter)),
+			Mood.valueOf(memoryDTO.getMood().toUpperCase())
 		);
 	}
 

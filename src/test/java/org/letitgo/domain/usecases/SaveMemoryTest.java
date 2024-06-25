@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.Memory;
-import org.letitgo.domain.beans.memoryfields.AlbumName;
-import org.letitgo.domain.beans.memoryfields.Content;
-import org.letitgo.domain.beans.memoryfields.MediaName;
-import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
+import org.letitgo.domain.beans.memoryfields.*;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.domain.ports.MemoryPort;
 import org.mockito.Mock;
@@ -40,7 +37,8 @@ class SaveMemoryTest {
 			new Username("ahamaide"),
 			new Content("salut c'est cool"),
 			new MediaName("test_img.jpg"),
-			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12))
+			new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12)),
+			Mood.HAPPY
 		);
 
 		when(this.memoryPort.save(memory)).thenReturn(new ActionSuccess(true));
