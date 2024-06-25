@@ -4,6 +4,7 @@ import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.infrastructure.dtos.FileInfosDTO;
+import org.letitgo.infrastructure.dtos.ProfilePictureInfosDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,16 @@ public class DropboxDao {
 
 	public ActionSuccess uploadFile(FileInfosDTO fileInfosDTO) {
 		try {
-			client.files().uploadBuilder("/" + fileInfosDTO.getFileName()).uploadAndFinish(fileInfosDTO.getFile());
+			client.files().uploadBuilder(fileInfosDTO.getFileName()).uploadAndFinish(fileInfosDTO.getFile());
+			return new ActionSuccess(true);
+		} catch (Exception e) {
+			return new ActionSuccess(false, Optional.ofNullable(e.getMessage()));
+		}
+	}
+
+	public ActionSuccess uploadFile(ProfilePictureInfosDTO profilePictureInfosDTO) {
+		try {
+			client.files().uploadBuilder(profilePictureInfosDTO.getFileName()).uploadAndFinish(profilePictureInfosDTO.getFile());
 			return new ActionSuccess(true);
 		} catch (Exception e) {
 			return new ActionSuccess(false, Optional.ofNullable(e.getMessage()));
@@ -44,7 +54,7 @@ public class DropboxDao {
 	}
 
 	public ActionSuccess deleteMediaByMediaNames(List<String> mediaNames) {
-		List<ActionSuccess> actionSuccesses = mediaNames.stream().map(fileName -> this.deleteFile("/" + fileName)).toList();
+		List<ActionSuccess> actionSuccesses = mediaNames.stream().map(fileName -> this.deleteFile(fileName)).toList();
 
 		List<ActionSuccess> actionsFailed = actionSuccesses.stream().filter(actionSuccess -> !actionSuccess.success()).toList();
 

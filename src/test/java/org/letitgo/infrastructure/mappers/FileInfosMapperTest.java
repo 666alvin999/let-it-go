@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.letitgo.domain.beans.FileInfos;
+import org.letitgo.domain.beans.albumfields.AlbumName;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
 import org.letitgo.domain.beans.userfields.Username;
@@ -30,6 +31,7 @@ class FileInfosMapperTest {
 		// Arrange
 		FileInfos fileInfos = new FileInfos(
 			new File(new FileInputStream("src/test/resources/test_img.png")),
+			new AlbumName("album1"),
 			new FileName("test_img.png"),
 			new Username("ahamaide")
 		);
@@ -40,7 +42,7 @@ class FileInfosMapperTest {
 		// Assert
 		FileInfosDTO expectedFileInfosDTO = fileInfosDTO()
 			.file(new FileInputStream("src/test/resources/test_img.png"))
-			.fileName("ahamaide_test_img.png")
+			.fileName("/ahamaide/album1/test_img.png")
 			.build();
 
 		assertAll(

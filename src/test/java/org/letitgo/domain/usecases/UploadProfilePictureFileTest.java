@@ -5,12 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
-import org.letitgo.domain.beans.FileInfos;
-import org.letitgo.domain.beans.albumfields.AlbumName;
+import org.letitgo.domain.beans.ProfilePictureInfos;
 import org.letitgo.domain.beans.fileinfosfields.File;
-import org.letitgo.domain.beans.fileinfosfields.FileName;
-import org.letitgo.domain.beans.userfields.Username;
-import org.letitgo.domain.ports.MemoryPort;
+import org.letitgo.domain.beans.profilepicturesinfosfields.Extension;
+import org.letitgo.domain.beans.userfields.*;
+import org.letitgo.domain.ports.UserPort;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -20,35 +19,34 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class DeleteMediaTest {
+class UploadProfilePictureFileTest {
 
-	private DeleteMedia deleteMedia;
+	private UploadProfilePictureFile uploadProfilePictureFile;
 
 	@Mock
-	private MemoryPort memoryPort;
+	private UserPort userPort;
 
 	@BeforeEach
 	public void setUp() {
-		this.deleteMedia = new DeleteMedia(memoryPort);
+		this.uploadProfilePictureFile = new UploadProfilePictureFile(userPort);
 	}
 
 	@Test
 	@SneakyThrows
-	public void shouldUploadFileSuccessfully() {
-		// Arrange
-		FileInfos fileInfos = new FileInfos(
+	public void shouldUploadProfilePicture() {
+	    // Arrange
+		ProfilePictureInfos profilePictureInfos = new ProfilePictureInfos(
 			new File(new FileInputStream("src/test/resources/test_img.png")),
-			new AlbumName("album1"),
-			new FileName("test_img.png"),
-			new Username("ahamaide")
+			new Username("ahamaide"),
+			new Extension("png")
 		);
 
-		when(this.memoryPort.deleteMedia(fileInfos)).thenReturn(new ActionSuccess(true));
+		when(this.userPort.uploadProfilePictureFile(profilePictureInfos)).thenReturn(new ActionSuccess(true));
 
-		// Act
-		ActionSuccess actualActionSuccess = this.deleteMedia.execute(fileInfos);
+	    // Act
+		ActionSuccess actualActionSuccess = this.uploadProfilePictureFile.execute(profilePictureInfos);
 
-		// Assert
+	    // Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

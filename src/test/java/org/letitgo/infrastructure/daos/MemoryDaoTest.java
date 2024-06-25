@@ -81,12 +81,18 @@ class MemoryDaoTest {
 		String username = "ahamaide";
 
 		// Act
-		List<String> actualMediaNames = this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username);
+		List<MemoryDTO> actualMemoryDTO = this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username);
 
 		// Assert
-		List<String> expectedMediaNames = List.of("test_img.png");
+		List<MemoryDTO> expectedMemoryDTO = List.of(
+			memoryDTO()
+				.mediaName("test_img.png")
+				.albumName("ahamaide's album")
+				.username("ahamaide")
+				.build()
+		);
 
-		assertThat(actualMediaNames).isEqualTo(expectedMediaNames);
+		assertThat(actualMemoryDTO).isEqualTo(expectedMemoryDTO);
 	}
 
 	@Test

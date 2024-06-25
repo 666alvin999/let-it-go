@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.FileInfos;
+import org.letitgo.domain.beans.albumfields.AlbumName;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
 import org.letitgo.domain.beans.userfields.Username;
@@ -37,6 +38,7 @@ class UploadMediaTest {
 		// Arrange
 		FileInfos fileInfos = new FileInfos(
 			new File(new FileInputStream("src/test/resources/test_img.png")),
+			new AlbumName("album1"),
 			new FileName("test_img.png"),
 			new Username("ahamaide")
 		);

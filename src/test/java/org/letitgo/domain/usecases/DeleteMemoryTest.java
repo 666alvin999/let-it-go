@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.Memory;
+import org.letitgo.domain.beans.albumfields.AlbumName;
 import org.letitgo.domain.beans.memoryfields.*;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.domain.ports.MemoryPort;

@@ -50,7 +50,7 @@ public class MemoryAdapter implements MemoryPort {
 
 	public ActionSuccess deleteMedia(FileInfos fileInfos) {
 		FileInfosDTO fileInfosDTO = this.fileInfosMapper.mapToDTO(fileInfos);
-		return this.dropboxDao.deleteFile("/" + fileInfosDTO.getFileName());
+		return this.dropboxDao.deleteFile(fileInfosDTO.getFileName());
 	}
 
 	public ActionSuccess deleteMediasByMediaNames(List<String> mediaNames) {
@@ -58,7 +58,7 @@ public class MemoryAdapter implements MemoryPort {
 	}
 
 	public List<String> getMediaNamesByAlbumNameAndUsername(String albumName, String username) {
-		return this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username).stream().map(mediaName -> username + "_" + mediaName).toList();
+		return this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username).stream().map(userDTO -> "/" + userDTO.getUsername() + "/" + userDTO.getAlbumName() + "/" + userDTO.getMediaName()).toList();
 	}
 
 	public Set<LocalDate> getDatesByUsername(String username) {

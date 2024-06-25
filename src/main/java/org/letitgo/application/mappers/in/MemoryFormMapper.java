@@ -31,12 +31,14 @@ public class MemoryFormMapper {
 
 			return new FileInfos(
 				file,
+				new AlbumName(memoryForm.getAlbumName()),
 				new FileName(memoryForm.getFileName()),
 				new Username(memoryForm.getUsername())
 			);
 		} catch (Exception e) {
 			return new FileInfos(
 				new File(null),
+				new AlbumName(memoryForm.getAlbumName()),
 				new FileName(null),
 				new Username(null)
 			);

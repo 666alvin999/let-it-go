@@ -21,7 +21,7 @@ public class MemoryDao {
 	private final String SAVE_BEGINNING = "INSERT INTO MEMORY (ALBUM_NAME, USERNAME, MEMORY_DATETIME, MOOD";
 	private final String DELETE = "DELETE FROM MEMORY WHERE ALBUM_NAME = :albumName AND USERNAME = :username AND MEMORY_DATETIME = :memoryDatetime";
 	private final String GET_BY_USERNAME_AND_DATETIME = "SELECT * FROM MEMORY WHERE USERNAME = :username AND MEMORY_DATETIME = :memoryDatetime";
-	private final String GET_MEDIA_NAMES_BY_USERNAME_AND_ALBUM_NAME = "SELECT MEDIA_NAME FROM MEMORY WHERE ALBUM_NAME = :albumName AND USERNAME = :username AND MEDIA_NAME IS NOT NULL";
+	private final String GET_MEDIA_NAMES_BY_USERNAME_AND_ALBUM_NAME = "SELECT MEDIA_NAME, ALBUM_NAME, USERNAME FROM MEMORY WHERE ALBUM_NAME = :albumName AND USERNAME = :username AND MEDIA_NAME IS NOT NULL";
 	private final String GET_DATES_BY_USERNAME = "SELECT MEMORY_DATETIME FROM MEMORY WHERE USERNAME = :username";
 
 	public MemoryDao() {
@@ -93,13 +93,13 @@ public class MemoryDao {
 		}
 	}
 
-	public List<String> getMediaNamesByAlbumNameAndUsername(String albumName, String username) {
+	public List<MemoryDTO> getMediaNamesByAlbumNameAndUsername(String albumName, String username) {
 		Map<String, String> params = Map.of(
 			"albumName", albumName,
 			"username", username
 		);
 
-		return this.jdbcTemplate.queryForList(GET_MEDIA_NAMES_BY_USERNAME_AND_ALBUM_NAME, params, String.class);
+		return this.jdbcTemplate.query(GET_MEDIA_NAMES_BY_USERNAME_AND_ALBUM_NAME, params, new BeanPropertyRowMapper<>(MemoryDTO.class));
 	}
 
 	public Set<String> getDatesByUsername(String username) {

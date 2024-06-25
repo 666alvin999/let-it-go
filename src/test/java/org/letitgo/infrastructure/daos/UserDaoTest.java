@@ -219,6 +219,7 @@ class UserDaoTest {
 				.userIdentity("HE")
 				.pwd("password")
 				.colorTheme("uranus")
+				.profilePicture("profilePicture.png")
 				.build()
 		);
 
@@ -239,10 +240,33 @@ class UserDaoTest {
 				.userIdentity("HE")
 				.pwd("password")
 				.colorTheme("uranus")
+				.profilePicture("profilePicture.png")
 				.build()
 		);
 
 		assertThat(actualUserDTO).isEqualTo(expectedUserDTO);
+	}
+
+	@Test
+	public void shouldUpdateProfilePictureByUsername() {
+	    // Act
+		ActionSuccess actualActionSuccess = this.userDao.insertProfilePictureByUsername("ahamaide/ahamaide.png", "ahamaide");
+
+	    // Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+	    assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldDeleteProfilePictureByUsername() {
+		// Act
+		ActionSuccess actualActionSuccess = this.userDao.deleteProfilePictureByUsername("ahamaide");
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}
 
 	@Test

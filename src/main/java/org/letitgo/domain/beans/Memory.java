@@ -1,5 +1,6 @@
 package org.letitgo.domain.beans;
 
+import org.letitgo.domain.beans.albumfields.AlbumName;
 import org.letitgo.domain.beans.memoryfields.*;
 import org.letitgo.domain.beans.userfields.Username;
 

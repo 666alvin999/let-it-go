@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.letitgo.application.dtos.in.MemoryForm;
 import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
+import org.letitgo.domain.beans.albumfields.AlbumName;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
 import org.letitgo.domain.beans.memoryfields.*;
@@ -47,6 +48,7 @@ class MemoryFormMapperTest {
 		// Assert
 		FileInfos expectedFileInfos = new FileInfos(
 			new File(new FileInputStream("src/test/resources/test_img.png")),
+			new AlbumName("album1"),
 			new FileName("test_img.png"),
 			new Username("ahamaide")
 		);
@@ -67,6 +69,7 @@ class MemoryFormMapperTest {
 			.content("test content")
 			.fileName("test_img.png")
 			.memoryDatetime("2024-01-01 12:12:12")
+			.mood("happy")
 			.build();
 
 		// Act

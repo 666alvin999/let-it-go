@@ -7,9 +7,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
+import org.letitgo.domain.beans.albumfields.AlbumName;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.fileinfosfields.FileName;
-import org.letitgo.domain.beans.memoryfields.*;
+import org.letitgo.domain.beans.memoryfields.Content;
+import org.letitgo.domain.beans.memoryfields.MediaName;
+import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
+import org.letitgo.domain.beans.memoryfields.Mood;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.daos.DropboxDao;
 import org.letitgo.infrastructure.daos.MemoryDao;
@@ -118,7 +122,7 @@ class MemoryAdapterTest {
 		FileInfosDTO fileInfosDTO = this.getFileInfosDTO();
 
 		when(this.fileInfosMapper.mapToDTO(fileInfos)).thenReturn(fileInfosDTO);
-		when(this.dropboxDao.deleteFile("/" + fileInfosDTO.getFileName())).thenReturn(new ActionSuccess(true));
+		when(this.dropboxDao.deleteFile(fileInfosDTO.getFileName())).thenReturn(new ActionSuccess(true));
 
 		// Act
 		ActionSuccess actualActionSuccess = this.memoryAdapter.deleteMedia(fileInfos);
@@ -150,15 +154,22 @@ class MemoryAdapterTest {
 		// Arrange
 		String albumName = "ahamaide's album";
 		String username = "ahamaide";
-		List<String> mediaNames = List.of("test_img.png");
 
-		when(this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username)).thenReturn(mediaNames);
+		List<MemoryDTO> memoryDTOs = List.of(
+			memoryDTO()
+				.albumName("ahamaide's album")
+				.username("ahamaide")
+				.mediaName("test_img.png")
+				.build()
+		);
+
+		when(this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username)).thenReturn(memoryDTOs);
 
 		// Act
 		List<String> actualMediaNames = this.memoryAdapter.getMediaNamesByAlbumNameAndUsername(albumName, username);
 
 		// Assert
-		List<String> expectedMediaNames = List.of("ahamaide_test_img.png");
+		List<String> expectedMediaNames = List.of("/ahamaide/ahamaide's album/test_img.png");
 
 		assertThat(actualMediaNames).isEqualTo(expectedMediaNames);
 	}
@@ -208,6 +219,7 @@ class MemoryAdapterTest {
 
 		return new FileInfos(
 			file,
+			new AlbumName("album1"),
 			new FileName("test_img.png"),
 			new Username("ahamaide")
 		);
@@ -216,7 +228,7 @@ class MemoryAdapterTest {
 	@SneakyThrows
 	private FileInfosDTO getFileInfosDTO() {
 		InputStream file = new FileInputStream("src/test/resources/test_img.png");
-		return new FileInfosDTO(file, "ahamaide_test_img.png");
+		return new FileInfosDTO(file, "/ahamaide/album1/test_img.jpg");
 	}
 
 }

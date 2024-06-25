@@ -27,6 +27,8 @@ public class UserDao {
 	private final String REGISTER = "INSERT INTO USERS (USERNAME, MAIL, BIRTH_DATE, USER_IDENTITY, PWD, COLOR_THEME) VALUES (:username, :mail, :birthDate, :identity, :password, :colorTheme)";
 	private final String GET_BY_USERNAME = "SELECT * FROM USERS WHERE USERNAME = :username";
 	private final String GET_BY_MAIL = "SELECT * FROM USERS WHERE MAIL = :mail";
+	private final String UPDATE_PROFILE_PICTURE_BY_USERNAME = "UPDATE USERS SET PROFILE_PICTURE = :profilePicture WHERE USERNAME = :username";
+	private final String DELETE_PROFILE_PICTURE_BY_USERNAME = "UPDATE USERS SET PROFILE_PICTURE = NULL WHERE USERNAME = :username";
 
 	public UserDao() {
 	}
@@ -93,6 +95,43 @@ public class UserDao {
 		}
 
 		return new ActionSuccess(false, Optional.of("Les informations de connexion sont invalides"));
+	}
+
+	public ActionSuccess insertProfilePictureByUsername(String profilePicture, String username) {
+		try {
+			if (this.getUserByUsername(username).isEmpty()) {
+				return new ActionSuccess(false, Optional.of("L'utilisateur n'existe pas"));
+			}
+
+			Map<String, String> params = Map.of(
+				"profilePicture", profilePicture,
+				"username", username
+			);
+
+			this.jdbcTemplate.update(UPDATE_PROFILE_PICTURE_BY_USERNAME, params);
+
+			return new ActionSuccess(true);
+		} catch (Exception e) {
+			return new ActionSuccess(false, Optional.of(e.getMessage()));
+		}
+	}
+
+	public ActionSuccess deleteProfilePictureByUsername(String username) {
+		try {
+			if (this.getUserByUsername(username).isEmpty()) {
+				return new ActionSuccess(false, Optional.of("L'utilisateur n'existe pas"));
+			}
+
+			Map<String, String> params = Map.of(
+				"username", username
+			);
+
+			this.jdbcTemplate.update(DELETE_PROFILE_PICTURE_BY_USERNAME, params);
+
+			return new ActionSuccess(true);
+		} catch (Exception e) {
+			return new ActionSuccess(false, Optional.of(e.getMessage()));
+		}
 	}
 
 	public List<UserDTO> getUserByUsername(String username) {

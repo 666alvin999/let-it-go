@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static java.util.Objects.nonNull;
-import static org.letitgo.infrastructure.dtos.UserDTO.userDTO;
 
 @Component
 public class UserMapper {
@@ -29,15 +28,15 @@ public class UserMapper {
 
 		String birthDate = nonNull(user.birthDate().value()) ? this.dateFormatter.format(user.birthDate().value()) : null;
 
-		return userDTO()
-			.username(user.username().value())
-			.mail(user.mail().value())
-			.birthDate(birthDate)
-			.userIdentity(identity)
-			.pwd(user.password().value())
-			.colorTheme(user.colorTheme().getValue())
-			.profilePicture(user.profilePicture().value())
-			.build();
+		return new UserDTO(
+			user.username().value(),
+			user.mail().value(),
+			birthDate,
+			identity,
+			user.password().value(),
+			user.colorTheme().getValue(),
+			user.profilePicture().value()
+		);
 	}
 
 	public User mapToDomain(UserDTO userDTO) {

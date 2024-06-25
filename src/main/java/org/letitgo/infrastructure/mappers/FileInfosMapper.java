@@ -10,7 +10,7 @@ public class FileInfosMapper {
 	public FileInfosDTO mapToDTO(FileInfos fileInfos) {
 		return new FileInfosDTO(
 			fileInfos.file().value(),
-			fileInfos.username().value() + "_" + fileInfos.fileName().value()
+			"/" + fileInfos.username().value() + "/" + fileInfos.albumName().value() + "/" + fileInfos.fileName().value()
 		);
 	}
 

@@ -1,20 +1,29 @@
 package org.letitgo.infrastructure.adapters;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.letitgo.domain.beans.ActionSuccess;
+import org.letitgo.domain.beans.ProfilePictureInfos;
 import org.letitgo.domain.beans.User;
+import org.letitgo.domain.beans.fileinfosfields.File;
+import org.letitgo.domain.beans.profilepicturesinfosfields.Extension;
 import org.letitgo.domain.beans.userfields.*;
+import org.letitgo.infrastructure.daos.DropboxDao;
 import org.letitgo.infrastructure.daos.UserDao;
+import org.letitgo.infrastructure.dtos.ProfilePictureInfosDTO;
 import org.letitgo.infrastructure.dtos.UserDTO;
+import org.letitgo.infrastructure.mappers.ProfilePictureInfosMapper;
 import org.letitgo.infrastructure.mappers.UserMapper;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.FileInputStream;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.letitgo.infrastructure.dtos.ProfilePictureInfosDTO.profilePictureInfosDTO;
 import static org.letitgo.infrastructure.dtos.UserDTO.userDTO;
 import static org.mockito.Mockito.when;
 
@@ -24,14 +33,20 @@ class UserAdapterTest {
 	private UserAdapter userAdapter;
 
 	@Mock
+	private UserDao userDao;
+
+	@Mock
+	private DropboxDao dropboxDao;
+
+	@Mock
 	private UserMapper userMapper;
 
 	@Mock
-	private UserDao userDao;
+	private ProfilePictureInfosMapper profilePictureInfosMapper;
 
 	@BeforeEach
 	public void setUp() {
-		this.userAdapter = new UserAdapter(userDao, userMapper);
+		this.userAdapter = new UserAdapter(this.userDao, this.dropboxDao, this.userMapper, this.profilePictureInfosMapper);
 	}
 
 	@Test
@@ -92,6 +107,101 @@ class UserAdapterTest {
 
 		// Act
 		ActionSuccess actualActionSuccess = this.userAdapter.logUserIn(user);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	@SneakyThrows
+	public void shouldUploadProfilePictureFileSuccessfully() {
+		// Arrange
+		ProfilePictureInfos profilePictureInfos = new ProfilePictureInfos(
+			new File(new FileInputStream("src/test/resources/test_img.png")),
+			new Username("ahamaide"),
+			new Extension("png")
+		);
+
+		ProfilePictureInfosDTO profilePictureInfosDTO = new ProfilePictureInfosDTO(
+			new FileInputStream("src/test/resources/test_img.png"),
+			"/ahamaide/ahamaide.png"
+		);
+
+		when(this.profilePictureInfosMapper.mapToDTO(profilePictureInfos)).thenReturn(profilePictureInfosDTO);
+		when(this.dropboxDao.uploadFile(profilePictureInfosDTO)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.uploadProfilePictureFile(profilePictureInfos);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	@SneakyThrows
+	public void shouldDeleteProfilePictureFileSuccessfully() {
+		// Arrange
+		ProfilePictureInfos profilePictureInfos = new ProfilePictureInfos(
+			new File(new FileInputStream("src/test/resources/test_img.png")),
+			new Username("ahamaide"),
+			new Extension("png")
+		);
+
+		ProfilePictureInfosDTO profilePictureInfosDTO = new ProfilePictureInfosDTO(
+			new FileInputStream("src/test/resources/test_img.png"),
+			"/ahamaide/ahamaide.png"
+		);
+
+		when(this.profilePictureInfosMapper.mapToDTO(profilePictureInfos)).thenReturn(profilePictureInfosDTO);
+		when(this.dropboxDao.deleteFile(profilePictureInfosDTO.getFileName())).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.deleteProfilePictureFile(profilePictureInfos);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldInsertProfilePictureInfosSuccessfully() {
+		// Arrange
+		ProfilePictureInfos profilePictureInfos = new ProfilePictureInfos(
+			null,
+			new Username("ahamaide"),
+			new Extension("png")
+		);
+
+		ProfilePictureInfosDTO profilePictureInfosDTO = profilePictureInfosDTO()
+			.fileName("/ahamaide/ahamaide.png")
+			.build();
+
+		when(this.profilePictureInfosMapper.mapToDTO(profilePictureInfos)).thenReturn(profilePictureInfosDTO);
+		when(this.userDao.insertProfilePictureByUsername(profilePictureInfosDTO.getFileName(), profilePictureInfos.username().value())).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.insertProfilePictureInfosByUsername(profilePictureInfos);
+
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldDeleteProfilePictureInfosSuccessfully() {
+		// Arrange
+		String username = "ahamaide";
+
+		when(this.userDao.deleteProfilePictureByUsername(username)).thenReturn(new ActionSuccess(true));
+
+		// Act
+		ActionSuccess actualActionSuccess = this.userAdapter.deleteProfilePictureInfosByUsername(username);
 
 		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
