@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -85,6 +86,17 @@ class MemoryDaoTest {
 		List<String> expectedMediaNames = List.of("test_img.png");
 
 		assertThat(actualMediaNames).isEqualTo(expectedMediaNames);
+	}
+
+	@Test
+	public void shouldGetDatesByUsername() {
+	    // Act
+	    Set<String> actualDates = this.memoryDao.getDatesByUsername("ahamaide");
+
+	    // Assert
+		Set<String> expectedDates = Set.of("2024-01-01 12:12:12", "2024-01-01 12:12:13");
+
+		assertThat(actualDates).isEqualTo(expectedDates);
 	}
 
 	@SneakyThrows

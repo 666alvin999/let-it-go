@@ -10,7 +10,9 @@ import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.MemoryDTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.letitgo.infrastructure.dtos.MemoryDTO.memoryDTO;
@@ -74,6 +76,23 @@ class MemoryMapperTest {
 		);
 
 		assertThat(actualMemory).isEqualTo(expectedMemory);
+	}
+
+	@Test
+	public void shouldReturnLocalDates() {
+	    // Arrange
+		Set<String> datetimes = Set.of("2024-01-01 12:12:12", "2024-02-01 12:12:12");
+
+	    // Act
+		Set<LocalDate> actualLocalDates = this.memoryMapper.mapToLocalDates(datetimes);
+
+	    // Assert
+	    Set<LocalDate> expectedLocalDates = Set.of(
+			LocalDate.of(2024, 1, 1),
+			LocalDate.of(2024, 2, 1)
+	    );
+
+		assertThat(actualLocalDates).isEqualTo(expectedLocalDates);
 	}
 
 }

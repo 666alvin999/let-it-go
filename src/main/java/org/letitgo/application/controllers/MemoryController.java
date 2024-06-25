@@ -1,26 +1,24 @@
 package org.letitgo.application.controllers;
 
+import com.google.gson.Gson;
 import org.letitgo.application.dtos.in.MemoryForm;
 import org.letitgo.application.mappers.in.MemoryFormMapper;
 import org.letitgo.application.presenters.ActionSuccessPresenter;
+import org.letitgo.application.presenters.LocalDatePresenter;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
 import org.letitgo.domain.ports.MemoryPort;
-import org.letitgo.domain.usecases.DeleteMedia;
-import org.letitgo.domain.usecases.DeleteMemory;
-import org.letitgo.domain.usecases.SaveMemory;
-import org.letitgo.domain.usecases.UploadMedia;
+import org.letitgo.domain.usecases.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -38,14 +36,19 @@ public class MemoryController {
 
 	private final ActionSuccessPresenter actionSuccessPresenter;
 
+	private final GetDatesByUsername getDatesByUsername;
+	private final LocalDatePresenter localDatePresenter;
+
 	@Autowired
-	public MemoryController(MemoryPort memoryPort, MemoryFormMapper memoryFormMapper, ActionSuccessPresenter actionSuccessPresenter) {
+	public MemoryController(MemoryPort memoryPort, MemoryFormMapper memoryFormMapper, ActionSuccessPresenter actionSuccessPresenter, LocalDatePresenter localDatePresenter) {
 		this.saveMemory = new SaveMemory(memoryPort);
 		this.deleteMemory = new DeleteMemory(memoryPort);
 		this.uploadMedia = new UploadMedia(memoryPort);
 		this.deleteMedia = new DeleteMedia(memoryPort);
+		this.getDatesByUsername = new GetDatesByUsername(memoryPort);
 		this.memoryFormMapper = memoryFormMapper;
 		this.actionSuccessPresenter = actionSuccessPresenter;
+		this.localDatePresenter = localDatePresenter;
 	}
 
 	@PostMapping(value = "/save", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -94,6 +97,12 @@ public class MemoryController {
 		}
 
 		return this.actionSuccessPresenter.present(actionSuccess);
+	}
+
+	@GetMapping("/getDatesByUsername")
+	public ResponseEntity<String> getDatesByUsername(@RequestParam String username) {
+		Set<LocalDate> localDates = this.getDatesByUsername.execute(username);
+		return this.localDatePresenter.presentAll(localDates);
 	}
 
 }

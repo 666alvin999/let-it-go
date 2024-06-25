@@ -25,8 +25,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.letitgo.infrastructure.dtos.MemoryDTO.memoryDTO;
@@ -159,9 +162,27 @@ class MemoryAdapterTest {
 		List<String> actualMediaNames = this.memoryAdapter.getMediaNamesByAlbumNameAndUsername(albumName, username);
 
 		// Assert
-		List<String> expectedMediaNames = List.of("test_img.png");
+		List<String> expectedMediaNames = List.of("ahamaide_test_img.png");
 
 		assertThat(actualMediaNames).isEqualTo(expectedMediaNames);
+	}
+
+	@Test
+	public void shouldReturnDatesByUsername() {
+	    // Arrange
+		Set<String> datetimes = Set.of("2024-01-01 12:12:12", "2023-01-01 12:12:12");
+		Set<LocalDate> localDates = Set.of(LocalDate.of(2024, 1, 1), LocalDate.of(2023, 1, 1));
+
+		when(this.memoryDao.getDatesByUsername("ahamaide")).thenReturn(datetimes);
+		when(this.memoryMapper.mapToLocalDates(datetimes)).thenReturn(localDates);
+
+	    // Act
+		Set<LocalDate> actualDates = this.memoryAdapter.getDatesByUsername("ahamaide");
+
+	    // Assert
+		Set<LocalDate> expectedDates = Set.of(LocalDate.of(2024, 1, 1), LocalDate.of(2023, 1, 1));
+
+		assertThat(actualDates).isEqualTo(expectedDates);
 	}
 
 	private Memory getMemory(Content content, MediaName mediaName) {

@@ -4,7 +4,9 @@ import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.FileInfos;
 import org.letitgo.domain.beans.Memory;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public interface MemoryPort {
 
@@ -19,5 +21,7 @@ public interface MemoryPort {
 	ActionSuccess deleteMediasByMediaNames(List<String> mediaNames);
 
 	List<String> getMediaNamesByAlbumNameAndUsername(String albumName, String username);
+
+	Set<LocalDate> getDatesByUsername(String username);
 
 }

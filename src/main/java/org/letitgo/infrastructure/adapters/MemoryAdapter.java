@@ -13,7 +13,9 @@ import org.letitgo.infrastructure.mappers.MemoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class MemoryAdapter implements MemoryPort {
@@ -57,6 +59,12 @@ public class MemoryAdapter implements MemoryPort {
 
 	public List<String> getMediaNamesByAlbumNameAndUsername(String albumName, String username) {
 		return this.memoryDao.getMediaNamesByAlbumNameAndUsername(albumName, username).stream().map(mediaName -> username + "_" + mediaName).toList();
+	}
+
+	public Set<LocalDate> getDatesByUsername(String username) {
+		Set<String> datetimes = this.memoryDao.getDatesByUsername(username);
+
+		return this.memoryMapper.mapToLocalDates(datetimes);
 	}
 
 }
