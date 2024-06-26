@@ -11,6 +11,7 @@ import org.letitgo.utils.EzDatabase;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -72,6 +73,33 @@ class MemoryDaoTest {
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+	}
+
+	@Test
+	public void shouldGetMemoriesByUserNameAndAlbumName() {
+	    // Act
+		List<MemoryDTO> actualMemoryDTOs = this.memoryDao.getMemoriesByUsernameAndAlbumName("ahamaide", "ahamaide's album");
+
+	    // Assert
+	    List<MemoryDTO> expectedMemoryDTOs = List.of(
+			memoryDTO()
+				.username("ahamaide")
+				.mediaName("test_img.png")
+				.textContent("Je suis patate")
+				.memoryDatetime("2024-01-01 12:12:12")
+				.mood("happy")
+				.albumName("ahamaide's album")
+				.build(),
+		    memoryDTO()
+			    .username("ahamaide")
+			    .textContent("Je suis AAAAAH")
+			    .memoryDatetime("2024-01-01 12:12:13")
+			    .mood("angry")
+			    .albumName("ahamaide's album")
+			    .build()
+	    );
+
+		assertThat(actualMemoryDTOs).isEqualTo(expectedMemoryDTOs);
 	}
 
 	@Test

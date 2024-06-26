@@ -53,6 +53,11 @@ public class MemoryAdapter implements MemoryPort {
 		return this.dropboxDao.deleteFile(fileInfosDTO.getFileName());
 	}
 
+	public List<Memory> getMemoriesByUsernameAndAlbumName(String username, String albumName) {
+		List<MemoryDTO> memoryDTOs = this.memoryDao.getMemoriesByUsernameAndAlbumName(username, albumName);
+		return this.memoryMapper.mapAllToMemory(memoryDTOs);
+	}
+
 	public ActionSuccess deleteMediasByMediaNames(List<String> mediaNames) {
 		return this.dropboxDao.deleteMediaByMediaNames(mediaNames);
 	}

@@ -18,6 +18,8 @@ public interface MemoryPort {
 
 	ActionSuccess deleteMedia(FileInfos fileInfos);
 
+	List<Memory> getMemoriesByUsernameAndAlbumName(String username, String albumName);
+
 	ActionSuccess deleteMediasByMediaNames(List<String> mediaNames);
 
 	List<String> getMediaNamesByAlbumNameAndUsername(String albumName, String username);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
@@ -40,6 +41,10 @@ public class MemoryMapper {
 			new MemoryDatetime(LocalDateTime.parse(memoryDTO.getMemoryDatetime(), this.dateFormatter)),
 			Mood.valueOf(memoryDTO.getMood().toUpperCase())
 		);
+	}
+
+	public List<Memory> mapAllToMemory(List<MemoryDTO> memoryDTOs) {
+		return memoryDTOs.stream().map(this::mapToMemory).toList();
 	}
 
 	public Set<LocalDate> mapToLocalDates(Set<String> datetimes) {
