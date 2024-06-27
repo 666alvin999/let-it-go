@@ -13,7 +13,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import java.io.FileInputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.letitgo.application.dtos.in.ProfilePictureForm.profilePictureForm;
 
 class ProfilePictureFormMapperTest {
@@ -28,17 +28,17 @@ class ProfilePictureFormMapperTest {
 	@Test
 	@SneakyThrows
 	public void shouldMapToProfilePictureInfos() {
-	    // Arrange
+		// Arrange
 		ProfilePictureForm profilePictureForm = profilePictureForm()
 			.multipartFile(new MockMultipartFile("test_img", new FileInputStream("src/test/resources/test_img.png")))
 			.username("ahamaide")
 			.extension("png")
 			.build();
 
-	    // Act
+		// Act
 		ProfilePictureInfos actualProfilePictureInfos = mapper.mapToProfilePictureInfos(profilePictureForm);
 
-	    // Assert
+		// Assert
 		ProfilePictureInfos expectedProfilePictureInfos = new ProfilePictureInfos(
 			new File(new FileInputStream("src/test/resources/test_img.png")),
 			new Username("ahamaide"),

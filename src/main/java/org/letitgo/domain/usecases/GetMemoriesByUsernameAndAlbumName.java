@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GetMemoriesByUsernameAndAlbumName {
 
-	private MemoryPort memoryPort;
+	private final MemoryPort memoryPort;
 
 	public GetMemoriesByUsernameAndAlbumName(MemoryPort memoryPort) {
 		this.memoryPort = memoryPort;

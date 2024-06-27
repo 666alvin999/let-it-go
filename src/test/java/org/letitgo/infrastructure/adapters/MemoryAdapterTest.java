@@ -24,7 +24,6 @@ import org.letitgo.infrastructure.mappers.MemoryMapper;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.print.attribute.standard.Media;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -136,7 +135,7 @@ class MemoryAdapterTest {
 
 	@Test
 	public void shouldGetMemoriesByUsernameAndAlbumName() {
-	    // Arrange
+		// Arrange
 		String username = "username";
 		String albumName = "albumName";
 
@@ -146,11 +145,11 @@ class MemoryAdapterTest {
 		when(this.memoryDao.getMemoriesByUsernameAndAlbumName(username, albumName)).thenReturn(memoryDTOs);
 		when(this.memoryMapper.mapAllToMemory(memoryDTOs)).thenReturn(memories);
 
-	    // Act
+		// Act
 		List<Memory> actualMemories = this.memoryAdapter.getMemoriesByUsernameAndAlbumName(username, albumName);
 
-	    // Assert
-	    List<Memory> expectedMemories = List.of(this.getMemory(new Content("content"), new MediaName(null)));
+		// Assert
+		List<Memory> expectedMemories = List.of(this.getMemory(new Content("content"), new MediaName(null)));
 
 		assertThat(actualMemories).isEqualTo(expectedMemories);
 	}

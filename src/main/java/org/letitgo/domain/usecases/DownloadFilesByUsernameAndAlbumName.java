@@ -6,7 +6,7 @@ import java.io.InputStream;
 
 public class DownloadFilesByUsernameAndAlbumName {
 
-	private MemoryPort memoryPort;
+	private final MemoryPort memoryPort;
 
 	public DownloadFilesByUsernameAndAlbumName(MemoryPort memoryPort) {
 		this.memoryPort = memoryPort;

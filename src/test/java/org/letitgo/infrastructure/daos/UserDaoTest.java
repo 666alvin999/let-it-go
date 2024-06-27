@@ -249,13 +249,13 @@ class UserDaoTest {
 
 	@Test
 	public void shouldUpdateProfilePictureByUsername() {
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.userDao.insertProfilePictureByUsername("ahamaide/ahamaide.png", "ahamaide");
 
-	    // Assert
+		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
-	    assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
+		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}
 
 	@Test

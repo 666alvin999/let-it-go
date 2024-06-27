@@ -1,10 +1,7 @@
 package org.letitgo.infrastructure.daos;
 
-import com.dropbox.core.DbxDownloader;
-import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.files.DownloadZipResult;
 import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.infrastructure.dtos.FileInfosDTO;
 import org.letitgo.infrastructure.dtos.ProfilePictureInfosDTO;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
-import java.util.zip.ZipOutputStream;
 
 import static java.util.Objects.requireNonNull;
 

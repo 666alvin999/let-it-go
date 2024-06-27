@@ -28,16 +28,16 @@ class DeleteProfilePictureInfosTest {
 	@Test
 	@SneakyThrows
 	public void shouldInsertProfilePicture() {
-	    // Arrange
-	    String username = "ahamaide";
+		// Arrange
+		String username = "ahamaide";
 
 		when(this.userPort.deleteProfilePictureInfosByUsername(username)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.deleteProfilePictureInfos.execute(username);
 
-	    // Assert
-	    ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}

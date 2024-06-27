@@ -4,7 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.letitgo.domain.beans.Memory;
 import org.letitgo.domain.beans.albumfields.AlbumName;
-import org.letitgo.domain.beans.memoryfields.*;
+import org.letitgo.domain.beans.memoryfields.Content;
+import org.letitgo.domain.beans.memoryfields.MediaName;
+import org.letitgo.domain.beans.memoryfields.MemoryDatetime;
+import org.letitgo.domain.beans.memoryfields.Mood;
 import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.infrastructure.dtos.MemoryDTO;
 

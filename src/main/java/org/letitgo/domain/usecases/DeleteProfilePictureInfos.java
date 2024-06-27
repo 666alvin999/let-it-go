@@ -5,7 +5,7 @@ import org.letitgo.domain.ports.UserPort;
 
 public class DeleteProfilePictureInfos {
 
-	private UserPort userPort;
+	private final UserPort userPort;
 
 	public DeleteProfilePictureInfos(UserPort userPort) {
 		this.userPort = userPort;

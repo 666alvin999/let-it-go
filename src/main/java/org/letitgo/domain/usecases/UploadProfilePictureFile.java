@@ -6,7 +6,7 @@ import org.letitgo.domain.ports.UserPort;
 
 public class UploadProfilePictureFile {
 
-	private UserPort userPort;
+	private final UserPort userPort;
 
 	public UploadProfilePictureFile(UserPort userPort) {
 		this.userPort = userPort;

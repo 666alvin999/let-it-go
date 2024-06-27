@@ -26,7 +26,7 @@ class MemoryViewModelMapperTest {
 
 	@Test
 	public void shouldMapToViewModel() {
-	    // Arrange
+		// Arrange
 		Memory memory = new Memory(
 			new AlbumName("album"),
 			new Username("username"),
@@ -36,16 +36,16 @@ class MemoryViewModelMapperTest {
 			Mood.HAPPY
 		);
 
-	    // Act
+		// Act
 		MemoryViewModel actualViewModel = this.mapper.mapToViewModel(memory);
 
-	    // Assert
-	    MemoryViewModel expectedViewModel = new MemoryViewModel(
+		// Assert
+		MemoryViewModel expectedViewModel = new MemoryViewModel(
 			"content",
-		    "2024-01-01 12:12:12",
-		    null,
-		    "happy"
-	    );
+			"2024-01-01 12:12:12",
+			null,
+			"happy"
+		);
 
 		assertThat(actualViewModel).isEqualTo(expectedViewModel);
 	}

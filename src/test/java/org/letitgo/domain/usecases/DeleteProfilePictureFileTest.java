@@ -34,7 +34,7 @@ class DeleteProfilePictureFileTest {
 	@Test
 	@SneakyThrows
 	public void shouldDeleteProfilePicture() {
-	    // Arrange
+		// Arrange
 		ProfilePictureInfos profilePictureInfos = new ProfilePictureInfos(
 			new File(new FileInputStream("src/test/resources/test_img.png")),
 			new Username("ahamaide"),
@@ -43,10 +43,10 @@ class DeleteProfilePictureFileTest {
 
 		when(this.userPort.deleteProfilePictureFile(profilePictureInfos)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.deleteProfilePictureFile.execute(profilePictureInfos);
 
-	    // Assert
+		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

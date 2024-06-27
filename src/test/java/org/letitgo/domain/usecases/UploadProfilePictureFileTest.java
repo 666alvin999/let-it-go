@@ -8,7 +8,7 @@ import org.letitgo.domain.beans.ActionSuccess;
 import org.letitgo.domain.beans.ProfilePictureInfos;
 import org.letitgo.domain.beans.fileinfosfields.File;
 import org.letitgo.domain.beans.profilepicturesinfosfields.Extension;
-import org.letitgo.domain.beans.userfields.*;
+import org.letitgo.domain.beans.userfields.Username;
 import org.letitgo.domain.ports.UserPort;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -34,7 +34,7 @@ class UploadProfilePictureFileTest {
 	@Test
 	@SneakyThrows
 	public void shouldUploadProfilePicture() {
-	    // Arrange
+		// Arrange
 		ProfilePictureInfos profilePictureInfos = new ProfilePictureInfos(
 			new File(new FileInputStream("src/test/resources/test_img.png")),
 			new Username("ahamaide"),
@@ -43,10 +43,10 @@ class UploadProfilePictureFileTest {
 
 		when(this.userPort.uploadProfilePictureFile(profilePictureInfos)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.uploadProfilePictureFile.execute(profilePictureInfos);
 
-	    // Assert
+		// Assert
 		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);

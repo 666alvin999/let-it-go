@@ -34,20 +34,20 @@ class InsertProfilePictureInfosTest {
 	@Test
 	@SneakyThrows
 	public void shouldInsertProfilePicture() {
-	    // Arrange
-	    ProfilePictureInfos profilePictureInfos = new ProfilePictureInfos(
+		// Arrange
+		ProfilePictureInfos profilePictureInfos = new ProfilePictureInfos(
 			new File(new FileInputStream("src/test/resources/test_img.png")),
-		    new Username("ahamaide"),
-		    new Extension("png")
-	    );
+			new Username("ahamaide"),
+			new Extension("png")
+		);
 
 		when(this.userPort.insertProfilePictureInfosByUsername(profilePictureInfos)).thenReturn(new ActionSuccess(true));
 
-	    // Act
+		// Act
 		ActionSuccess actualActionSuccess = this.insertProfilePictureInfos.execute(profilePictureInfos);
 
-	    // Assert
-	    ActionSuccess expectedActionSuccess = new ActionSuccess(true);
+		// Assert
+		ActionSuccess expectedActionSuccess = new ActionSuccess(true);
 
 		assertThat(actualActionSuccess).isEqualTo(expectedActionSuccess);
 	}

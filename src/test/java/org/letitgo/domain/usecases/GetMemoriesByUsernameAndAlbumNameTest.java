@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,7 +35,7 @@ class GetMemoriesByUsernameAndAlbumNameTest {
 
 	@Test
 	public void shouldGetMemoriesByUsernameAndAlbumName() {
-	    // Arrange
+		// Arrange
 		String username = "username";
 		String albumName = "albumName";
 
@@ -53,20 +52,20 @@ class GetMemoriesByUsernameAndAlbumNameTest {
 
 		when(this.memoryPort.getMemoriesByUsernameAndAlbumName(username, albumName)).thenReturn(memories);
 
-	    // Act
+		// Act
 		List<Memory> actualMemories = this.usecase.execute(username, albumName);
 
-	    // Assert
-	    List<Memory> expectedMemories = List.of(
-		    new Memory(
-			    new AlbumName("album"),
-			    new Username("username"),
-			    new Content("content"),
-			    new MediaName("mediaName"),
-			    new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12)),
-			    Mood.HAPPY
-		    )
-	    );
+		// Assert
+		List<Memory> expectedMemories = List.of(
+			new Memory(
+				new AlbumName("album"),
+				new Username("username"),
+				new Content("content"),
+				new MediaName("mediaName"),
+				new MemoryDatetime(LocalDateTime.of(2024, 1, 1, 12, 12, 12)),
+				Mood.HAPPY
+			)
+		);
 
 		assertThat(actualMemories).isEqualTo(expectedMemories);
 	}
