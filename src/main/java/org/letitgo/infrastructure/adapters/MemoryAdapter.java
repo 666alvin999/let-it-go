@@ -13,6 +13,7 @@ import org.letitgo.infrastructure.mappers.MemoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -56,6 +57,10 @@ public class MemoryAdapter implements MemoryPort {
 	public List<Memory> getMemoriesByUsernameAndAlbumName(String username, String albumName) {
 		List<MemoryDTO> memoryDTOs = this.memoryDao.getMemoriesByUsernameAndAlbumName(username, albumName);
 		return this.memoryMapper.mapAllToMemory(memoryDTOs);
+	}
+
+	public InputStream getFilesByUsernameAndAlbumName(String username, String albumName) {
+		return this.dropboxDao.downloadFiles("/" + username + "/" + albumName);
 	}
 
 	public ActionSuccess deleteMediasByMediaNames(List<String> mediaNames) {
