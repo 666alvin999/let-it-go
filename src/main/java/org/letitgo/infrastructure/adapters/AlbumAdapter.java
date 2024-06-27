@@ -40,4 +40,8 @@ public class AlbumAdapter implements AlbumPort {
 		return this.albumMapper.mapAllToAlbums(albumDTOs);
 	}
 
+	public int getAlbumCountByUsername(String username) {
+		return this.albumDao.getAlbumCountByUsername(username);
+	}
+
 }

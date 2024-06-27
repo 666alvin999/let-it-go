@@ -101,10 +101,25 @@ class AlbumDaoTest {
 			albumDTO()
 				.albumName("ahamaide's album")
 				.username("ahamaide")
+				.build(),
+			albumDTO()
+				.albumName("album4")
+				.username("ahamaide")
 				.build()
 		);
 
 		assertThat(actualAlbumDTO).isEqualTo(expectedAlbumDTO);
+	}
+
+	@Test
+	public void shouldGetAlbumCountByUsername() {
+	    // Act
+	    int actualAlbumCount = this.albumDao.getAlbumCountByUsername("ahamaide");
+
+	    // Assert
+	    int expectedAlbumCount = 2;
+
+		assertThat(actualAlbumCount).isEqualTo(expectedAlbumCount);
 	}
 
 	@SneakyThrows

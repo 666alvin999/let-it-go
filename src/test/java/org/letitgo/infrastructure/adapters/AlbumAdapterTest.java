@@ -94,6 +94,23 @@ class AlbumAdapterTest {
 		assertThat(actualAlbums).isEqualTo(expectedAlbums);
 	}
 
+	@Test
+	public void shouldReturnAlbumCount() {
+	    // Arrange
+		int albumCount = 2;
+		String username = "ahamaide";
+
+		when(this.albumDao.getAlbumCountByUsername("ahamaide")).thenReturn(albumCount);
+
+	    // Act
+		int actualAlbumCount = this.albumAdapter.getAlbumCountByUsername(username);
+
+	    // Assert
+	    int expectedAlbumCount = 2;
+
+		assertThat(actualAlbumCount).isEqualTo(expectedAlbumCount);
+	}
+
 	private List<Album> getAlbums() {
 		return List.of(
 			new Album(

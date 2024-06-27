@@ -22,6 +22,7 @@ public class AlbumDao {
 	private final String DELETE = "DELETE FROM ALBUM WHERE ALBUM_NAME = :albumName AND USERNAME = :username";
 	private final String GET_BY_ALBUM_NAME_AND_USERNAME = "SELECT * FROM ALBUM WHERE ALBUM_NAME = :albumName AND USERNAME = :username";
 	private final String GET_BY_USERNAME = "SELECT * FROM ALBUM WHERE USERNAME = :username";
+	private final String GET_COUNT_BY_USERNAME = "SELECT COUNT(*) FROM ALBUM WHERE USERNAME = :username";
 
 	public AlbumDao() {
 	}
@@ -80,6 +81,14 @@ public class AlbumDao {
 		);
 
 		return this.jdbcTemplate.query(GET_BY_ALBUM_NAME_AND_USERNAME, params, new BeanPropertyRowMapper<>(AlbumDTO.class));
+	}
+
+	public Integer getAlbumCountByUsername(String username) {
+		Map<String, String> params = Map.of(
+			"username", username
+		);
+
+		return this.jdbcTemplate.queryForObject(GET_COUNT_BY_USERNAME, params, Integer.class);
 	}
 
 }

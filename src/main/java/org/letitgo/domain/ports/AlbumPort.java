@@ -13,4 +13,6 @@ public interface AlbumPort {
 
 	List<Album> getAlbumsByUsername(String username);
 
+	int getAlbumCountByUsername(String username);
+
 }

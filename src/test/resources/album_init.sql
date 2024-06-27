@@ -20,4 +20,5 @@ CREATE TABLE ALBUM (
 );
 
 INSERT INTO ALBUM VALUES ('ahamaide''s album', 'ahamaide');
+INSERT INTO ALBUM VALUES ('album4', 'ahamaide');
 INSERT INTO ALBUM VALUES ('trichier''s album', 'trichier');
